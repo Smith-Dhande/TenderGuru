@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const TrustBar = () => {
   const { t, language } = useLanguage();
@@ -40,11 +40,56 @@ export const TrustBar = () => {
                   : '14 Participant Categories Grouped in 4 Core Pillars'}
               </span>
             </div>
+
+            {/* Mobile Scroll Prompt Indicator */}
+            <div className="sm:hidden mt-4 flex items-center space-x-2 text-xs text-[#93622A] font-semibold">
+              <span>{language === 'mr' ? 'उजवीकडे स्वाइप करा' : 'Swipe left to view all pillars'}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
           </div>
 
-          {/* Right Column - 4 Structured Pillar Groups (2x2 Grid) */}
+          {/* Right Column - Horizontally Scrollable Track on Mobile, 2x2 Grid on Desktop */}
           <div className="lg:col-span-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+            
+            {/* Mobile View: Horizontally Scrollable Card Track */}
+            <div className="sm:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none">
+              {groups.map((item, idx) => (
+                <div 
+                  key={idx}
+                  className="w-[82vw] shrink-0 snap-center bg-[#FAF8F5] border border-[#E2DDD5] p-5 rounded-xs shadow-2xs flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono font-bold text-[#93622A] bg-[#93622A]/10 px-2 py-0.5 rounded-xs">
+                        {item.num}
+                      </span>
+                      <span className="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                        {language === 'mr' ? 'स्तंभ' : 'Pillar'} {idx + 1} of 4
+                      </span>
+                    </div>
+
+                    <h3 className={`text-base font-bold text-[#0B1628] mb-1 ${
+                      language === 'mr' ? 'font-mr text-lg' : 'font-sans'
+                    }`}>
+                      {item.title}
+                    </h3>
+
+                    <p className="text-xs font-semibold text-[#7A501F] mb-2.5">
+                      {item.subtitle}
+                    </p>
+
+                    <p className={`text-xs text-slate-700 leading-relaxed ${
+                      language === 'mr' ? 'font-mr text-xs' : 'font-sans'
+                    }`}>
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop / Tablet View: UNCHANGED 2x2 Grid */}
+            <div className="hidden sm:grid sm:grid-cols-2 gap-4 lg:gap-5">
               {groups.map((item, idx) => (
                 <div 
                   key={idx}
@@ -76,10 +121,10 @@ export const TrustBar = () => {
                       {item.desc}
                     </p>
                   </div>
-
                 </div>
               ))}
             </div>
+
           </div>
 
         </div>
