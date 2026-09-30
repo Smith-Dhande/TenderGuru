@@ -7,7 +7,7 @@ export const FounderSection = () => {
   const highlights = t('founder.highlights');
 
   return (
-    <section id="founder" className="py-14 sm:py-20 bg-[#F4F0E8] border-b border-[#E8E2D5]">
+    <section id="founder" className="py-14 sm:py-20 bg-[#FAF8F5] border-b border-[#E8E2D5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Editorial Frame */}

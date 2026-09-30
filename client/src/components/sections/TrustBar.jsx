@@ -7,7 +7,7 @@ export const TrustBar = () => {
   const groups = t('trust.groups');
 
   return (
-    <section className="bg-[#F4F0E8] py-12 sm:py-16 border-b border-[#E8E2D5]">
+    <section className="bg-[#FAF8F5] py-12 sm:py-16 border-b border-[#E8E2D5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Editorial Split Composition */}

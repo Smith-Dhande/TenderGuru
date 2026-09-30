@@ -18,7 +18,7 @@ export const LearningFramework = () => {
   ];
 
   return (
-    <section id="framework" className="py-14 sm:py-24 bg-[#F2F2F4] border-b border-[#E2DDD5] overflow-hidden">
+    <section id="framework" className="py-14 sm:py-24 bg-[#FAF8F5] border-b border-[#E8E2D5] overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

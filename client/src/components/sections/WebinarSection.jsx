@@ -7,7 +7,7 @@ export const WebinarSection = () => {
   const features = t('webinar.features');
 
   return (
-    <section id="webinars" className="py-12 sm:py-20 bg-[#F4F0E8] border-b border-[#E8E2D5]">
+    <section id="webinars" className="py-12 sm:py-20 bg-[#FAF8F5] border-b border-[#E8E2D5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Box */}

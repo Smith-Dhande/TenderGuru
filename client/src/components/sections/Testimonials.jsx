@@ -26,7 +26,7 @@ export const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-16 sm:py-24 bg-[#F5F5F7] border-b border-[#E2DDD5] overflow-hidden">
+    <section id="testimonials" className="py-16 sm:py-24 bg-[#FAF8F5] border-b border-[#E2DDD5] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

@@ -51,6 +51,76 @@ export const translations = {
         }
       ]
     },
+    courses: {
+      title: "शासकीय निविदा व GeM मधील प्रमुख प्रशिक्षण अभ्यासक्रम",
+      subtitle: "तुमच्या व्यावसायिक गरजेनुसार तयार केलेले सखोल, प्रात्यक्षिक आणि तज्ज्ञ-चलित शिक्षण कार्यक्रम.",
+      viewCourse: "अभ्यासक्रम पहा",
+      enrollNow: "प्रवेश अर्ज करा",
+      close: "बंद करा",
+      syllabusTitle: "अभ्यासक्रमातील प्रमुख घटक:",
+      items: [
+        {
+          id: "c1",
+          image: "/courses/course_tender_mastery.jpg",
+          tag: "मास्टरक्लास • ३० दिवस",
+          title: "संपूर्ण शासकीय निविदा मास्टरप्रशिक्षण (Mastery Course)",
+          desc: "PWD, ZP, जलसंपदा व महानगरपालिका निविदा शोधण्यापासून ते अचूक दस्तऐवज अपलोडिंग व यशस्वी कंत्राट मिळवण्यापर्यंतचे सखोल ज्ञान.",
+          level: "प्रारंभिक ते प्रगत",
+          duration: "३० दिवस",
+          modules: [
+            "शासकीय खरेदी नियम व विविध विभागांची रचना",
+            "डिजिटल स्वाक्षरी (DSC Class 3) व पोर्टल नोंदणी",
+            "तांत्रिक बोली (Technical Bid) तयारी व दस्तऐवजीकरण",
+            "आर्थिक बोली (Financial Bid) व दरपत्रक गणना"
+          ]
+        },
+        {
+          id: "c2",
+          image: "/courses/course_gem_portal.jpg",
+          tag: "GeM विशेष • १५ दिवस",
+          title: "GeM पोर्टल ४.० विक्रेता व कॅटलॉगिंग मास्टरप्रशिक्षण",
+          desc: "गव्हर्नमेंट ई-मार्केटप्लेस (GeM) वर विक्रेता नोंदणी, प्रॉडक्ट व सर्व्हिस लिस्टिंग, डायरेक्ट पर्चेस आणि L1 बिडिंग धोरणे.",
+          level: "सर्व व्यावसायिकांसाठी",
+          duration: "१५ दिवस",
+          modules: [
+            "GeM विक्रेता प्राथमिक व द्वितीयक नोंदणी",
+            "उत्पादन व सेवा कॅटलॉग अपलोडिंग नियम",
+            "थेट खरेदी (Direct Purchase) व L1 खरेदी नियम",
+            "GeM ई-निविदा व रिव्हर्स लिलाव (RA) सहभाग"
+          ]
+        },
+        {
+          id: "c3",
+          image: "/courses/course_contractor_licensing.jpg",
+          tag: "कंत्राटदार नोंदणी • ७ दिवस",
+          title: "PWD व जिल्हा परिषद कंत्राटदार परवाना व नोंदणी मार्गदर्शन",
+          desc: "सुशिक्षित बेरोजगार अभियंता, क्लास ४ ते क्लास १ कंत्राटदार नोंदणी, आवश्यक कागदपत्रे व सरकारी परवाना मिळवण्याची प्रक्रिया.",
+          level: "नवीन ठेकेदारांसाठी",
+          duration: "७ दिवस",
+          modules: [
+            "PWD व जिल्हा परिषद नोंदणी पात्रता निकष",
+            "सुशिक्षित बेरोजगार अभियंता (SBE) सवलती",
+            "सॉल्व्हन्सी प्रमाणपत्र व बँक गॅरंटी प्रक्रिया",
+            "शासकीय परवाना नूतनीकरण व श्रेणी वाढ"
+          ]
+        },
+        {
+          id: "c4",
+          image: "/courses/course_bidding_strategies.jpg",
+          tag: "प्रगत धोरणे • १४ दिवस",
+          title: "प्रगत निविदा बोली (Bidding) व उप-कंत्राट यश धोरणे",
+          desc: "तांत्रिक बोली (Technical Bid) तयारी, आर्थिक बोली गणना, सॉल्व्हन्सी प्रमाणपत्र आणि संयुक्त उपक्रम (JV) करार रचना.",
+          level: "प्रगत ठेकेदारांसाठी",
+          duration: "१४ दिवस",
+          modules: [
+            "अचूक दर अंदाज (Rate Estimation) व नफा गणना",
+            "संयुक्त उपक्रम (Joint Venture) व उप-कंत्राट करार",
+            "स्पर्धक विश्लेषण व तांत्रिक अपात्रता टाळणे",
+            "टेंडर रद्द किंवा अडकल्यास कायदेशीर उपाय"
+          ]
+        }
+      ]
+    },
     whatWeDo: {
       tag: "आमचे ध्येय व कार्य",
       title: "शासकीय निविदा प्रक्रियेचे सुलभ व व्यावहारिक ज्ञान",
@@ -318,6 +388,76 @@ export const translations = {
           title: "Service Providers & Digital Hubs",
           subtitle: "GeM Vendors, Cyber CSCs & Online Centers",
           desc: "GeM marketplace sellers, service vendors, Cyber CSC operators, online center owners, and company secretaries."
+        }
+      ]
+    },
+    courses: {
+      title: "Master Government Contracting & E-Procurement",
+      subtitle: "Practical, and expert-led training programs designed to empower contractors, engineers, and MSMEs.",
+      viewCourse: "View Course",
+      enrollNow: "Register Interest",
+      close: "Close",
+      syllabusTitle: "Key Curriculum Highlights:",
+      items: [
+        {
+          id: "c1",
+          image: "/courses/course_tender_mastery.jpg",
+          tag: "MASTERCLASS • 30 DAYS",
+          title: "Complete Government Tender Mastery Certification",
+          desc: "End-to-end guidance from searching PWD, ZP, and Municipal tenders to technical documentation, DSC bidding, and contract execution.",
+          level: "Beginner to Advanced",
+          duration: "30 Days",
+          modules: [
+            "Public Procurement Rules & Department Classification",
+            "Digital Signature Certificate (DSC Class 3) Setup",
+            "Technical Bid Preparation & Document Verification",
+            "Financial Rate Estimation & Portal Submission"
+          ]
+        },
+        {
+          id: "c2",
+          image: "/courses/course_gem_portal.jpg",
+          tag: "GeM SPECIAL • 15 DAYS",
+          title: "GeM Portal 4.0 Vendor & Cataloging Mastery",
+          desc: "Master Seller registration, OEM panel approvals, Product & Service catalog creation, Direct Orders, and L1 bidding tactics on GeM.",
+          level: "All Business Owners",
+          duration: "15 Days",
+          modules: [
+            "Primary & Secondary GeM Seller Account Setup",
+            "Product & Service Catalog Uploading & Pairing",
+            "Direct Order, L1 Order & Custom Bid Procurement",
+            "Reverse Auction (RA) & Incident Management"
+          ]
+        },
+        {
+          id: "c3",
+          image: "/courses/course_contractor_licensing.jpg",
+          tag: "CONTRACTOR LICENSING • 7 DAYS",
+          title: "PWD & Zilla Parishad Contractor Registration Guide",
+          desc: "Step-by-step licensing roadmap for Educated Unemployed Engineers, Class V to Class I contractor enlistment, and solvency filings.",
+          level: "New Contractors",
+          duration: "7 Days",
+          modules: [
+            "PWD & Zilla Parishad Enlistment Criteria",
+            "Educated Unemployed Engineer (SBE) Benefits",
+            "Bank Guarantee & Solvency Certificate Prep",
+            "License Upgradation & Annual Renewal Rules"
+          ]
+        },
+        {
+          id: "c4",
+          image: "/courses/course_bidding_strategies.jpg",
+          tag: "ADVANCED BIDDING • 14 DAYS",
+          title: "Advanced Tender Bidding & Sub-Contracting Strategies",
+          desc: "Strategic technical bid qualification, financial rate estimation, EMD/Bank Guarantee optimization, and Joint Venture (JV) structuring.",
+          level: "Experienced Bidders",
+          duration: "14 Days",
+          modules: [
+            "Strategic Rate Estimation & Profit Optimization",
+            "Joint Venture (JV) & Sub-Contracting Agreements",
+            "Competitor Analysis & Technical Compliance",
+            "Handling Tender Rejections & Legal Remedies"
+          ]
         }
       ]
     },
