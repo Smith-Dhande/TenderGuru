@@ -1,36 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { ArrowRight, Calendar } from 'lucide-react';
 
 export const Hero = () => {
   const { t, language } = useLanguage();
   const isMarathi = language === 'mr';
+  const [bgIndex, setBgIndex] = useState(0);
+
+  // Alternating background image timer every 3 seconds (3000ms)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setBgIndex((prev) => (prev === 0 ? 1 : 0));
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative overflow-hidden bg-[#FAF8F5] min-h-screen flex items-center justify-center py-10 sm:py-16 border-b border-[#E8E2D5]">
       
-      {/* Background Image Overlay Container */}
+      {/* Background Image Overlay Container with 3s Crossfade */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
         
-        {/* Mobile View: Portrait Background Image */}
+        {/* Mobile View: Image 1 (Existing Mobile Hero) */}
         <div 
-          className="absolute inset-0 bg-cover bg-center sm:hidden transform scale-100 filter contrast-105 saturate-110 opacity-90 transition-all duration-300"
+          className={`absolute inset-0 bg-cover bg-center sm:hidden transform scale-100 filter contrast-105 saturate-110 transition-opacity duration-1000 ${
+            bgIndex === 0 ? 'opacity-90' : 'opacity-0'
+          }`}
           style={{ backgroundImage: `url('/hero_bg_mobile.jpg')` }}
         />
 
-        {/* Desktop/Tablet View: Landscape Background Image */}
+        {/* Mobile View: Image 2 (New Parliament/Desk Image) */}
         <div 
-          className="absolute inset-0 bg-cover bg-center hidden sm:block transform scale-100 filter contrast-105 saturate-110 opacity-90 transition-all duration-300"
+          className={`absolute inset-0 bg-cover bg-center sm:hidden transform scale-100 filter contrast-105 saturate-110 transition-opacity duration-1000 ${
+            bgIndex === 1 ? 'opacity-90' : 'opacity-0'
+          }`}
+          style={{ backgroundImage: `url('/hero_bg_alt.jpg')` }}
+        />
+
+        {/* Desktop View: Image 1 (Existing Desktop Hero) */}
+        <div 
+          className={`absolute inset-0 bg-cover bg-center hidden sm:block transform scale-100 filter contrast-105 saturate-110 transition-opacity duration-1000 ${
+            bgIndex === 0 ? 'opacity-90' : 'opacity-0'
+          }`}
           style={{ backgroundImage: `url('/hero_bg.png')` }}
+        />
+
+        {/* Desktop View: Image 2 (New Parliament/Desk Image) */}
+        <div 
+          className={`absolute inset-0 bg-cover bg-center hidden sm:block transform scale-100 filter contrast-105 saturate-110 transition-opacity duration-1000 ${
+            bgIndex === 1 ? 'opacity-90' : 'opacity-0'
+          }`}
+          style={{ backgroundImage: `url('/hero_bg_alt.jpg')` }}
         />
         
         {/* Mobile Contrast Gradients */}
-        <div className="absolute inset-0 sm:hidden bg-gradient-to-b from-[#FAF8F5]/90 via-[#FAF8F5]/65 to-[#FAF8F5]/95" />
-        <div className="absolute inset-0 sm:hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#FAF8F5]/45 to-[#FAF8F5]/90" />
+        <div className="absolute inset-0 sm:hidden bg-gradient-to-b from-[#FAF8F5]/90 via-[#FAF8F5]/65 to-[#FAF8F5]/95 z-10" />
+        <div className="absolute inset-0 sm:hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#FAF8F5]/45 to-[#FAF8F5]/90 z-10" />
 
         {/* Desktop Contrast Gradients */}
-        <div className="hidden sm:block absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/55 via-transparent to-[#FAF8F5]/85" />
-        <div className="hidden sm:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#FAF8F5]/35 via-transparent to-[#FAF8F5]/70" />
+        <div className="hidden sm:block absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/55 via-transparent to-[#FAF8F5]/85 z-10" />
+        <div className="hidden sm:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#FAF8F5]/35 via-transparent to-[#FAF8F5]/70 z-10" />
       </div>
 
       {/* Main Centered Content Container */}
@@ -58,7 +87,7 @@ export const Hero = () => {
           </a>
         </div>
 
-        {/* Reduced Headline Size */}
+        {/* Headline */}
         <div className="mb-3 sm:mb-4 max-w-2xl mx-auto">
           <h1 
             className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#0B1628] font-bold tracking-tight leading-snug drop-shadow-xs ${
@@ -69,7 +98,7 @@ export const Hero = () => {
           </h1>
         </div>
 
-        {/* Reduced Supporting Description */}
+        {/* Supporting Description */}
         <p 
           className={`max-w-xl mx-auto text-xs sm:text-sm md:text-base text-slate-700 font-medium leading-relaxed mb-6 sm:mb-8 px-2 ${
             isMarathi ? 'font-mr text-xs sm:text-sm md:text-base' : 'font-sans'
@@ -83,7 +112,7 @@ export const Hero = () => {
           {/* Primary CTA */}
           <a
             href="#courses"
-            className={`w-full sm:w-auto inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-none border border-[#0B1628] text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-200 group cursor-pointer ${
+            className={`w-full sm:w-auto inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-[#FFFFFF] px-5 py-2.5 sm:px-6 sm:py-3 rounded-none border border-[#0B1628] text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-200 group cursor-pointer ${
               isMarathi ? 'font-mr text-xs sm:text-sm font-bold' : 'font-sans'
             }`}
           >
