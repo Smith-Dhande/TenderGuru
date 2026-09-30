@@ -23,67 +23,66 @@ export const WhatWeDo = () => {
           }`}>
             {t('whatWeDo.title')}
           </h2>
-          <p className={`text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed ${
-            language === 'mr' ? 'font-mr text-sm sm:text-base' : 'font-sans'
+          <p className={`text-xs sm:text-base md:text-lg text-slate-700 leading-relaxed ${
+            language === 'mr' ? 'font-mr text-xs sm:text-base' : 'font-sans'
           }`}>
             {t('whatWeDo.subtitle')}
           </p>
         </div>
 
         {/* Editorial Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-stretch">
           
-          {/* Left Column: Numbered List Navigation */}
-          <div className="lg:col-span-5 flex flex-col space-y-2.5 sm:space-y-3">
+          {/* Left Column: Numbered Selector Buttons (Responsive for Mobile) */}
+          <div className="lg:col-span-5 flex flex-col space-y-2 sm:space-y-3">
             {features.map((feature, idx) => {
-              const Icon = icons[idx % icons.length];
               const isActive = activeTab === idx;
               return (
                 <button
                   key={idx}
                   onClick={() => setActiveTab(idx)}
-                  className={`w-full text-left p-3.5 sm:p-5 rounded-xs transition-all duration-200 border flex items-start space-x-3.5 ${
+                  className={`w-full text-left p-3 sm:p-5 rounded-xs transition-all duration-200 border flex items-center justify-between space-x-3 ${
                     isActive
                       ? 'bg-[#0B1628] text-white border-[#0B1628] shadow-md'
                       : 'bg-[#F2EFE9] text-[#16243B] border-[#E2DDD5] hover:bg-[#EAE5DA]'
                   }`}
                 >
-                  <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-xs ${
-                    isActive ? 'bg-amber-300 text-[#0B1628]' : 'bg-[#93622A]/15 text-[#93622A]'
-                  }`}>
-                    0{idx + 1}
-                  </span>
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-xs shrink-0 ${
+                      isActive ? 'bg-amber-300 text-[#0B1628]' : 'bg-[#93622A]/15 text-[#93622A]'
+                    }`}>
+                      0{idx + 1}
+                    </span>
 
-                  <div className="flex-1">
-                    <h3 className={`font-bold text-sm sm:text-lg ${
+                    <h3 className={`font-bold text-xs sm:text-lg truncate ${
                       isActive ? 'text-white' : 'text-[#0B1628]'
-                    } ${language === 'mr' ? 'font-mr text-base sm:text-xl' : 'font-sans'}`}>
+                    } ${language === 'mr' ? 'font-mr text-sm sm:text-xl' : 'font-sans'}`}>
                       {feature.title}
                     </h3>
                   </div>
 
-                  <ArrowRight className={`w-4 h-4 mt-0.5 transition-transform ${
-                    isActive ? 'text-amber-300 translate-x-1' : 'text-slate-400 opacity-0 group-hover:opacity-100'
+                  <ArrowRight className={`w-4 h-4 shrink-0 transition-transform ${
+                    isActive ? 'text-amber-300 translate-x-1' : 'text-slate-400 opacity-60'
                   }`} />
                 </button>
               );
             })}
           </div>
 
-          {/* Right Column: Detailed Feature Showcase */}
-          <div className="lg:col-span-7 bg-[#F4F0E8] border-2 border-[#93622A]/30 p-5 sm:p-8 rounded-xs flex flex-col justify-between">
+          {/* Right Column: Active Feature Showcase Card */}
+          <div className="lg:col-span-7 bg-[#F4F0E8] border-2 border-[#93622A]/30 p-4 sm:p-8 rounded-xs flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-3 sm:pb-4 mb-4 sm:mb-6 border-b border-[#E2DDD5]">
+              <div className="flex items-center justify-between pb-3 sm:pb-4 mb-3 sm:mb-6 border-b border-[#E2DDD5]">
                 <div className="flex items-center space-x-3">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#0B1628] text-amber-300 flex items-center justify-center rounded-xs shrink-0">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#0B1628] text-amber-300 flex items-center justify-center rounded-xs shrink-0">
                     {React.createElement(icons[activeTab % icons.length], { className: "w-4 h-4 sm:w-5 sm:h-5" })}
                   </div>
                   <div>
-                    <span className="text-[11px] font-bold font-mono text-[#93622A] uppercase tracking-wider">
+                    <span className="text-[10px] sm:text-xs font-bold font-mono text-[#93622A] uppercase tracking-wider">
                       Pillar 0{activeTab + 1}
                     </span>
-                    <h4 className={`text-lg sm:text-2xl font-bold text-[#0B1628] ${
-                      language === 'mr' ? 'font-mr text-xl sm:text-2xl' : 'font-editorial font-normal'
+                    <h4 className={`text-base sm:text-2xl font-bold text-[#0B1628] ${
+                      language === 'mr' ? 'font-mr text-lg sm:text-2xl' : 'font-editorial font-normal'
                     }`}>
                       {features[activeTab].title}
                     </h4>
@@ -92,18 +91,18 @@ export const WhatWeDo = () => {
               </div>
 
               <p className={`text-slate-800 text-xs sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 ${
-                language === 'mr' ? 'font-mr text-sm sm:text-lg' : 'font-sans font-normal'
+                language === 'mr' ? 'font-mr text-xs sm:text-lg' : 'font-sans font-normal'
               }`}>
                 {features[activeTab].desc}
               </p>
             </div>
 
-            {/* Bottom Callout in Active Card */}
-            <div className="pt-4 sm:pt-6 border-t border-[#E2DDD5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-              <div className="flex items-center space-x-2 text-xs font-semibold text-[#7A501F]">
-                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#93622A]" />
+            {/* Bottom Action Footer */}
+            <div className="pt-3 sm:pt-6 border-t border-[#E2DDD5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 sm:gap-4">
+              <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-semibold text-[#7A501F]">
+                <Check className="w-3.5 h-3.5 text-[#93622A]" />
                 <span className={language === 'mr' ? 'font-mr text-xs sm:text-sm' : 'font-sans'}>
-                  {language === 'mr' ? 'व्यवहारिक प्रशिक्षण व मार्गदर्शन' : 'Practical Hands-on Guidance'}
+                  {language === 'mr' ? 'व्यावहारिक प्रशिक्षण व मार्गदर्शन' : 'Practical Hands-on Guidance'}
                 </span>
               </div>
 

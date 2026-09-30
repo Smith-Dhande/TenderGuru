@@ -22,8 +22,42 @@ export const CoreDomains = () => {
           </h2>
         </div>
 
-        {/* 3 Domain Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 border-t border-slate-700/60 pt-6 sm:pt-8">
+        {/* Mobile View: Horizontally Scrollable Cards Track */}
+        <div className="sm:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none">
+          {items.map((item, idx) => (
+            <div 
+              key={idx} 
+              className="w-[82vw] shrink-0 snap-center flex flex-col justify-between p-5 bg-slate-900/90 border border-slate-800 rounded-xs shadow-md"
+            >
+              <div>
+                <span className="text-2xl font-bold text-amber-300/90 font-mono mb-2 block">
+                  {item.code}
+                </span>
+                <h3 className={`text-base font-bold text-white mb-2 ${
+                  language === 'mr' ? 'font-mr text-lg' : 'font-sans'
+                }`}>
+                  {item.name}
+                </h3>
+                <p className={`text-slate-300 text-xs leading-relaxed mb-4 ${
+                  language === 'mr' ? 'font-mr text-xs' : 'font-sans'
+                }`}>
+                  {item.desc}
+                </p>
+              </div>
+
+              <a 
+                href="#contact"
+                className="inline-flex items-center text-xs font-semibold text-amber-300 hover:text-white uppercase tracking-wider transition-colors pt-3 border-t border-slate-800"
+              >
+                <span>{language === 'mr' ? 'अधिक जाणून घ्या' : 'Learn More'}</span>
+                <ArrowUpRight className="ml-1.5 w-3.5 h-3.5" />
+              </a>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: UNCHANGED 3-Column Grid */}
+        <div className="hidden sm:grid sm:grid-cols-3 gap-6 lg:gap-8 border-t border-slate-700/60 pt-6 sm:pt-8">
           {items.map((item, idx) => (
             <div key={idx} className="flex flex-col justify-between p-5 sm:p-6 bg-slate-900/50 border border-slate-800 rounded-xs hover:border-amber-300/40 transition-colors">
               <div>
