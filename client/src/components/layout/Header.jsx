@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, PhoneCall, ArrowRight } from 'lucide-react';
 
 export const Header = () => {
   const { t, language } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Streamlined navigation items
   const navItems = [
@@ -18,10 +31,18 @@ export const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E8E2D5] transition-all">
-      {/* Top subtle bar for authority & contact quick note */}
-      <div className="hidden lg:block bg-[#0B1628] text-[#E2E8F0] text-xs py-1.5 px-6 border-b border-white/10">
-        <div className="max-w-7xl mx-auto flex justify-between items-center text-slate-300">
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-[#FAF8F5]/90 backdrop-blur-xl shadow-lg border-b border-[#E2DDD5]/80 py-0' 
+        : 'bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E8E2D5]'
+    }`}>
+      {/* Top subtle bar - Smoothly collapses & fades out on desktop scroll */}
+      <div 
+        className={`hidden lg:block bg-[#0B1628] text-[#E2E8F0] text-xs transition-all duration-300 overflow-hidden border-b border-white/10 ${
+          isScrolled ? 'max-h-0 py-0 opacity-0 border-none' : 'max-h-10 py-1.5 opacity-100'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center text-slate-300">
           <div className="flex items-center space-x-4">
             <span className={language === 'mr' ? 'font-mr' : 'font-sans'}>
               {language === 'mr'
@@ -30,16 +51,19 @@ export const Header = () => {
             </span>
           </div>
           <div className="flex items-center space-x-6 text-xs">
-            <span className="text-amber-300/90 font-medium">
-              {language === 'mr' ? 'हेल्पलाइन:' : 'Helpline:'} +91 99759 17001
-            </span>
+            <a href="tel:+919975917001" className="text-amber-300/90 hover:text-amber-300 font-medium inline-flex items-center space-x-1.5 transition-colors">
+              <PhoneCall className="w-3 h-3 text-amber-400" />
+              <span>{language === 'mr' ? 'हेल्पलाइन:' : 'Helpline:'} +91 99759 17001</span>
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Main Header Container */}
+      {/* Main Header Container - Height shrinks dynamically from h-20 to h-16 when scrolled */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className={`flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? 'h-16' : 'h-20'
+        }`}>
 
           {/* Official Logo Brand */}
           <a href="#home" className="flex items-center space-x-3 group py-1 shrink-0">
@@ -47,7 +71,9 @@ export const Header = () => {
             <img
               src="/navbar_logo.png"
               alt="eTender Guru"
-              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+              className={`w-auto object-contain transition-all duration-300 group-hover:scale-105 ${
+                isScrolled ? 'h-9 sm:h-10' : 'h-10 sm:h-12'
+              }`}
               onError={(e) => {
                 e.currentTarget.src = "/logoTenderGuru.png";
               }}
@@ -55,28 +81,33 @@ export const Header = () => {
 
             {/* Brand text name: HIDDEN on mobile, SHOWN ONLY on desktop (lg:flex) */}
             <div className="hidden lg:flex flex-col">
-              <span className="font-brand-display font-bold text-xl sm:text-2xl text-[#0B1628] tracking-tight leading-none">
+              <span className={`font-brand-display font-bold text-[#0B1628] tracking-tight leading-none transition-all duration-300 ${
+                isScrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'
+              }`}>
                 eTender <span className="text-[#93622A]">Guru</span>
               </span>
-              <span className="text-[10px] tracking-widest uppercase text-slate-500 font-medium mt-1">
+              <span className={`tracking-widest uppercase text-slate-500 font-medium transition-all duration-300 ${
+                isScrolled ? 'text-[9px] mt-0.5' : 'text-[10px] mt-1'
+              }`}>
                 {language === 'mr' ? 'शासकीय निविदा मार्गदर्शक' : 'Tender Consultancy & Education'}
               </span>
             </div>
           </a>
 
-          {/* Right-Aligned Streamlined Navigation & Language Switcher */}
-          <div className="hidden lg:flex items-center justify-end flex-1 space-x-6 xl:space-x-8 ml-6">
-            <nav className="flex items-center space-x-4 xl:space-x-7">
+          {/* Right-Aligned Streamlined Navigation, CTA & Language Switcher */}
+          <div className="hidden lg:flex items-center justify-end flex-1 space-x-5 xl:space-x-7 ml-6">
+            <nav className="flex items-center space-x-1.5 xl:space-x-3">
               {navItems.map((item) => (
                 <a
                   key={item.key}
                   href={item.href}
-                  className={`text-sm font-semibold transition-colors hover:text-[#93622A] text-[#16243B] py-2 relative group whitespace-nowrap ${
+                  className={`text-sm font-semibold text-[#16243B] hover:text-[#93622A] hover:bg-[#93622A]/8 px-3 py-1.5 rounded-full transition-all duration-200 relative group whitespace-nowrap ${
                     language === 'mr' ? 'font-mr text-sm xl:text-base' : 'font-sans'
                   }`}
                 >
-                  {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#93622A] transition-all duration-300 group-hover:w-full" />
+                  <span className="relative z-10">{item.label}</span>
+                  {/* Subtle animated bottom glow bar */}
+                  <span className="absolute bottom-1 left-3 right-3 h-[2px] bg-[#93622A] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </a>
               ))}
             </nav>
