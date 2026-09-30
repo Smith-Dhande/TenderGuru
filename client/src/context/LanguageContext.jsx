@@ -1,28 +1,41 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { mrData } from '../data/mr/landingData';
-import { enData } from '../data/en/landingData';
+import { translations } from '../data/translations';
 
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  // Marathi is default language as specified in requirements
-  const [lang, setLang] = useState(() => {
-    return localStorage.getItem('etender_lang') || 'mr';
-  });
+  // English is default primary language
+  const [language, setLanguage] = useState('en');
 
   useEffect(() => {
-    localStorage.setItem('etender_lang', lang);
-    document.documentElement.lang = lang;
-  }, [lang]);
+    document.documentElement.lang = language;
+  }, [language]);
 
-  const toggleLanguage = (newLang) => {
-    setLang(newLang);
+  const toggleLanguage = () => {
+    setLanguage(prev => (prev === 'mr' ? 'en' : 'mr'));
   };
 
-  const content = lang === 'mr' ? mrData : enData;
+  const t = (path) => {
+    const keys = path.split('.');
+    let result = translations[language];
+    for (const key of keys) {
+      if (result && result[key] !== undefined) {
+        result = result[key];
+      } else {
+        // Fallback to English if key missing
+        let fallback = translations['en'];
+        for (const fk of keys) {
+          if (fallback && fallback[fk] !== undefined) fallback = fallback[fk];
+          else return path;
+        }
+        return fallback;
+      }
+    }
+    return result;
+  };
 
   return (
-    <LanguageContext.Provider value={{ lang, toggleLanguage, content }}>
+    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

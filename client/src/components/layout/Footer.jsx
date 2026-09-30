@@ -1,91 +1,121 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Phone, Mail, MapPin, ShieldAlert } from 'lucide-react';
 
 export const Footer = () => {
-  const { content } = useLanguage();
-  const { footer, nav } = content;
+  const { t, language } = useLanguage();
 
   return (
-    <footer className="bg-[#051329] text-[#94A3B8] pt-16 pb-12 border-t border-[#173B66]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
+    <footer className="bg-[#0B1628] text-white pt-14 pb-8 border-t border-[#16243B]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-slate-800">
           
-          {/* Brand Column (5 cols) */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <img
-                src="/logoTenderGuru.png"
-                alt="eTender Guru Logo"
-                className="h-10 w-auto object-contain bg-white/95 p-1 rounded"
+          {/* Column 1 - Brand & Description */}
+          <div className="md:col-span-5">
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="/logoTenderGuru.png" 
+                alt="eTender Guru" 
+                className="h-10 w-auto object-contain"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
               />
-              <span className="font-display text-2xl font-bold text-white tracking-tight">
-                eTender Guru
-              </span>
+              <div className="flex flex-col">
+                <span className="font-brand-display font-bold text-2xl text-white tracking-tight leading-none">
+                  eTender <span className="text-amber-300">Guru</span>
+                </span>
+                <span className="text-[10px] tracking-widest uppercase text-slate-400 font-medium mt-1">
+                  {language === 'mr' ? 'शासकीय निविदा मार्गदर्शक' : 'Tender Consultancy & Education'}
+                </span>
+              </div>
             </div>
 
-            <p className="text-sm text-[#94A3B8] leading-relaxed max-w-md">
-              शासकीय निविदा (e-Procurement) व सरकारी ई-मार्केटप्लेस (GeM) संदर्भात अचूक संस्थात्मक मार्गदर्शन व प्रत्यक्ष बिडिंग सहाय्य देणारी अग्रणी संस्था.
+            <p className={`text-slate-300 text-sm leading-relaxed mb-6 max-w-md ${
+              language === 'mr' ? 'font-mr text-base' : 'font-sans'
+            }`}>
+              {t('footer.desc')}
             </p>
 
-            <div className="pt-2 space-y-2 text-xs text-[#CBD5E1]">
-              <div className="flex items-center gap-2">
-                <Phone size={14} className="text-[#F59E0B]" />
-                <a href={`tel:${nav.phone.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">{nav.phone}</a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail size={14} className="text-[#F59E0B]" />
-                <a href={`mailto:${nav.email}`} className="hover:text-white transition-colors">{nav.email}</a>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin size={14} className="text-[#F59E0B]" />
-                <span>{nav.address}</span>
-              </div>
+            <div className="space-y-1 text-xs text-amber-300/90 font-medium">
+              <p>{t('footer.marketedBy')}</p>
+              <p className="text-slate-400">{t('footer.isoTag')}</p>
             </div>
           </div>
 
-          {/* Quick Navigation Links (3 cols) */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="font-heading font-bold text-base text-white border-b border-[#173B66] pb-2">
-              मुख्य विभाग (Navigation)
+          {/* Column 2 - Quick Nav Links */}
+          <div className="md:col-span-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300 mb-4 font-sans">
+              {t('footer.quickLinks')}
             </h4>
-            <ul className="space-y-2 text-sm">
-              {nav.links.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="hover:text-[#F59E0B] transition-colors inline-block py-0.5"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a href="#home" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.home')}
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.about')}
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.services')}
+                </a>
+              </li>
+              <li>
+                <a href="#framework" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.framework')}
+                </a>
+              </li>
+              <li>
+                <a href="#webinars" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.webinars')}
+                </a>
+              </li>
+              <li>
+                <a href="#founder" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.founder')}
+                </a>
+              </li>
+              <li>
+                <a href="#testimonials" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.testimonials')}
+                </a>
+              </li>
+              <li>
+                <a href="#faq" className="text-slate-300 hover:text-white transition-colors">
+                  {t('nav.faq')}
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Disclaimer (4 cols) */}
-          <div className="lg:col-span-4 space-y-3 bg-[#0F2A4A] p-6 border border-[#173B66] rounded-xl">
-            <div className="flex items-center gap-2 text-[#F59E0B] font-bold text-sm">
-              <ShieldAlert size={16} />
-              <span>संस्थात्मक पारदर्शकता (Disclaimer)</span>
+          {/* Column 3 - Corporate & Legal Info */}
+          <div className="md:col-span-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300 mb-4 font-sans">
+              {t('footer.legal')}
+            </h4>
+            <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
+              <p className="font-semibold text-white">
+                HARSHADTENDER GURU EDUCATION (OPC) PRIVATE LIMITED
+              </p>
+              <p>
+                {t('contact.info.address')}
+              </p>
+              <p className="text-slate-400">
+                Helpline: +91 99759 17001
+              </p>
             </div>
-            <p className="text-xs text-[#CBD5E1] leading-relaxed">
-              {footer.disclaimer}
-            </p>
           </div>
 
         </div>
 
-        {/* Footer Bottom Bar */}
-        <div className="pt-8 border-t border-[#173B66] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#64748B]">
-          <p>{footer.copyright}</p>
-          <div className="flex items-center gap-6">
-            <a href="#about" className="hover:text-white transition-colors">प्रायव्हसी पॉलिसी</a>
-            <a href="#about" className="hover:text-white transition-colors">अटी व शर्ती</a>
-            <a href="#contact" className="hover:text-white transition-colors">सल्लागार केंद्र</a>
-          </div>
+        {/* Bottom Copyright Bar */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 space-y-3 sm:space-y-0">
+          <p>© {new Date().getFullYear()} eTender Guru. {t('footer.rights')}</p>
+          <p className="text-slate-500">
+            {language === 'mr' ? 'शासकीय निविदा, e-Procurement व GeM चे अधिकृत संस्था' : 'Independent Education & Advisory Platform'}
+          </p>
         </div>
 
       </div>

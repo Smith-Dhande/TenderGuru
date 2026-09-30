@@ -1,59 +1,141 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Quote, MapPin } from 'lucide-react';
+import { Quote, Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 export const Testimonials = () => {
-  const { content } = useLanguage();
-  const { testimonials } = content;
+  const { t, language } = useLanguage();
+  const items = t('testimonials.items');
+  const [centerIndex, setCenterIndex] = useState(0); // Center active card index
+
+  const handlePrev = () => {
+    setCenterIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCenterIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
+  };
+
+  // Helper to determine index for Left, Center, Right slots
+  const leftIndex = (centerIndex - 1 + items.length) % items.length;
+  const rightIndex = (centerIndex + 1) % items.length;
+
+  const displaySlots = [
+    { item: items[leftIndex], realIdx: leftIndex, pos: 'left' },
+    { item: items[centerIndex], realIdx: centerIndex, pos: 'center' },
+    { item: items[rightIndex], realIdx: rightIndex, pos: 'right' }
+  ];
 
   return (
-    <section id="testimonials" className="bg-[#FAF8F5] py-16 sm:py-24 border-b border-[#D8CFBF]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+    <section id="testimonials" className="py-16 sm:py-24 bg-[#F5F5F7] border-b border-[#E2DDD5] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="pb-10 border-b border-[#D8CFBF] space-y-2">
-          <div className="flex items-center gap-3">
-            <span className="font-serif text-2xl font-bold text-[#9E6B1D]">
-              {testimonials.sectionNum}
-            </span>
-            <span className="text-xs uppercase tracking-widest font-semibold text-[#64748B]">
-              {testimonials.eyebrow}
-            </span>
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            {testimonials.title}
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
+          <span className="text-xs font-bold tracking-widest text-[#93622A] uppercase font-sans">
+            {t('testimonials.tag')}
+          </span>
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl text-[#0B1628] font-extrabold mt-2 leading-tight ${
+            language === 'mr' ? 'font-mr' : 'font-editorial'
+          }`}>
+            {t('testimonials.title')}
           </h2>
         </div>
 
-        {/* Large Editorial Quotes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-          {testimonials.list.map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-8 border border-[#D8CFBF] shadow-sm flex flex-col justify-between space-y-6 relative hover:border-[#0B1727] transition-colors"
-            >
-              <Quote size={32} className="text-[#9E6B1D]/20 absolute top-4 right-4" />
-              
-              {/* Quote Body */}
-              <p className="font-serif text-base sm:text-lg italic text-[#0F172A] leading-relaxed relative z-10">
-                "{item.quote}"
-              </p>
+        {/* 3D Focus Stage (Center Card Always Largest) */}
+        <div className="relative max-w-5xl mx-auto px-2">
+          
+          {/* 3 Slot Display Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center gap-4 sm:gap-6 min-h-[360px] py-6">
+            {displaySlots.map(({ item, realIdx, pos }) => {
+              const isCenter = pos === 'center';
 
-              {/* Attribution */}
-              <div className="pt-4 border-t border-[#E7E1D7] space-y-1">
-                <h3 className="font-serif font-bold text-base text-[#0F172A]">
-                  {item.name}
-                </h3>
-                <p className="text-xs text-[#64748B] font-medium">
-                  {item.role}
-                </p>
-                <div className="flex items-center gap-1 text-xs text-[#9E6B1D] pt-0.5">
-                  <MapPin size={12} />
-                  <span>{item.city}</span>
+              return (
+                <div
+                  key={realIdx}
+                  onClick={() => !isCenter && setCenterIndex(realIdx)}
+                  className={`rounded-xs flex flex-col justify-between transition-all duration-500 ease-out ${
+                    isCenter
+                      ? 'scale-100 sm:scale-105 lg:scale-115 z-30 opacity-100 bg-[#FAF8F5] border-2 border-[#93622A] shadow-2xl p-7 sm:p-8'
+                      : 'scale-90 z-10 opacity-50 bg-[#F2EFE9] border border-[#E2DDD5] shadow-xs p-6 cursor-pointer hover:opacity-80 transition-opacity hidden md:flex'
+                  }`}
+                >
+                  <div>
+                    {/* Header Rating & Quote */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-1 text-[#93622A]">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className={`fill-[#93622A] ${isCenter ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
+                        ))}
+                      </div>
+
+                      <Quote className={isCenter ? 'w-7 h-7 text-[#93622A]/30' : 'w-5 h-5 text-slate-400/20'} />
+                    </div>
+
+                    {/* Testimonial Quote Text */}
+                    <p className={`leading-relaxed mb-6 ${
+                      isCenter 
+                        ? 'text-[#0B1628] text-base sm:text-lg font-medium drop-shadow-2xs' 
+                        : 'text-slate-600 text-xs sm:text-sm line-clamp-4'
+                    } ${language === 'mr' ? 'font-mr' : 'font-sans'}`}>
+                      "{item.quote}"
+                    </p>
+                  </div>
+
+                  {/* Author Metadata */}
+                  <div className={`pt-4 border-t ${isCenter ? 'border-[#93622A]/20' : 'border-[#E2DDD5]'}`}>
+                    <div className="flex items-center space-x-1.5">
+                      <p className={`font-bold ${isCenter ? 'text-[#0B1628] text-lg' : 'text-slate-800 text-base'} ${
+                        language === 'mr' ? 'font-mr' : 'font-sans'
+                      }`}>
+                        {item.name}
+                      </p>
+                      {isCenter && <CheckCircle2 className="w-4 h-4 text-[#93622A]" />}
+                    </div>
+
+                    <p className={isCenter ? 'text-[#93622A] font-semibold text-xs mt-0.5' : 'text-slate-500 text-xs'}>
+                      {item.role}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              );
+            })}
+          </div>
+
+          {/* Navigation Arrow Controls & Dots */}
+          <div className="flex items-center justify-center space-x-4 mt-10">
+            <button
+              onClick={handlePrev}
+              className="p-3.5 rounded-full bg-[#FAF8F5] border border-[#93622A]/40 text-[#0B1628] hover:bg-[#0B1628] hover:text-white hover:border-[#0B1628] transition-all duration-200 shadow-sm"
+              aria-label="Previous Testimonial"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Pagination Dots */}
+            <div className="flex items-center space-x-2.5">
+              {items.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCenterIndex(idx)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    idx === centerIndex
+                      ? 'w-8 bg-[#93622A]'
+                      : 'w-2.5 bg-[#C5BDB0] hover:bg-slate-500'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
             </div>
-          ))}
+
+            <button
+              onClick={handleNext}
+              className="p-3.5 rounded-full bg-[#FAF8F5] border border-[#93622A]/40 text-[#0B1628] hover:bg-[#0B1628] hover:text-white hover:border-[#0B1628] transition-all duration-200 shadow-sm"
+              aria-label="Next Testimonial"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
         </div>
 
       </div>
