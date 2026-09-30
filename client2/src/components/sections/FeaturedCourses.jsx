@@ -28,7 +28,7 @@ export const FeaturedCourses = () => {
         </div>
 
         {/* 2-Column Mobile & 4-Column Desktop Course Cards Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-stretch">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-stretch">
           {visibleCourses.map((course, idx) => (
             <CourseCard
               key={course.id || idx}

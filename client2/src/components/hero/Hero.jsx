@@ -29,12 +29,12 @@ export const Hero = () => {
           style={{ backgroundImage: `url('/hero_bg_mobile.jpg')` }}
         />
 
-        {/* Mobile View: Image 2 (New Parliament/Desk Image) */}
+        {/* Mobile View: Image 2 (hero_bg_alt) */}
         <div 
           className={`absolute inset-0 bg-cover bg-center sm:hidden transform scale-100 filter contrast-105 saturate-110 transition-opacity duration-1000 ${
             bgIndex === 1 ? 'opacity-90' : 'opacity-0'
           }`}
-          style={{ backgroundImage: `url('/hero_bg_alt.jpg')` }}
+          style={{ backgroundImage: `url('/hero_bg_alt.png')` }}
         />
 
         {/* Desktop View: Image 1 (Existing Desktop Hero) */}
@@ -45,12 +45,12 @@ export const Hero = () => {
           style={{ backgroundImage: `url('/hero_bg.png')` }}
         />
 
-        {/* Desktop View: Image 2 (New Parliament/Desk Image) */}
+        {/* Desktop View: Image 2 (hero_bg_alt) */}
         <div 
           className={`absolute inset-0 bg-cover bg-center hidden sm:block transform scale-100 filter contrast-105 saturate-110 transition-opacity duration-1000 ${
             bgIndex === 1 ? 'opacity-90' : 'opacity-0'
           }`}
-          style={{ backgroundImage: `url('/hero_bg_alt.jpg')` }}
+          style={{ backgroundImage: `url('/hero_bg_alt.png')` }}
         />
         
         {/* Mobile Contrast Gradients */}
@@ -87,7 +87,7 @@ export const Hero = () => {
           </a>
         </div>
 
-        {/* Headline */}
+        {/* Reduced Headline Size */}
         <div className="mb-3 sm:mb-4 max-w-2xl mx-auto">
           <h1 
             className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#0B1628] font-bold tracking-tight leading-snug drop-shadow-xs ${
@@ -98,7 +98,7 @@ export const Hero = () => {
           </h1>
         </div>
 
-        {/* Supporting Description */}
+        {/* Reduced Supporting Description */}
         <p 
           className={`max-w-xl mx-auto text-xs sm:text-sm md:text-base text-slate-700 font-medium leading-relaxed mb-6 sm:mb-8 px-2 ${
             isMarathi ? 'font-mr text-xs sm:text-sm md:text-base' : 'font-sans'
