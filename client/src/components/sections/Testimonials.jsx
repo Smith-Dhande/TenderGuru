@@ -80,7 +80,7 @@ export const Testimonials = () => {
           aria-label="Participant Testimonials Carousel"
         >
           {/* Stage Container with responsive height */}
-          <div className="relative h-[310px] xs:h-[280px] sm:h-[310px] md:h-[310px] w-full flex items-center justify-center">
+          <div className="relative min-h-[220px] sm:h-[310px] md:h-[310px] w-full flex items-center justify-center">
             {items.map((item, idx) => {
               const offset = getOffset(idx);
               const isActive = offset === 0;

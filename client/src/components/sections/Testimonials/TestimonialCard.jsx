@@ -15,7 +15,7 @@ export const TestimonialCard = ({ item, isActive, language, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`w-full h-full bg-white border transition-all duration-300 p-4 sm:p-7 lg:p-8 flex flex-col justify-between select-none ${
+      className={`w-full sm:h-full bg-white border transition-all duration-300 p-4 sm:p-7 lg:p-8 flex flex-col justify-start sm:justify-between select-none ${
         isActive
           ? 'border-2 border-[#93622A] shadow-xl relative z-20 cursor-default'
           : 'border border-[#D8CFBF] bg-[#FAF8F5]/90 hover:border-[#93622A]/60 cursor-pointer relative z-10'
@@ -43,7 +43,7 @@ export const TestimonialCard = ({ item, isActive, language, onClick }) => {
 
       {/* 2. Identity Block (Name, Designation, Monogram Avatar) */}
       <div
-        className={`pt-2.5 sm:pt-4 border-t flex items-center justify-between gap-2 sm:gap-3 mt-auto transition-colors ${
+        className={`pt-2.5 sm:pt-4 border-t flex items-center justify-between gap-2 sm:gap-3 mt-3 sm:mt-auto transition-colors ${
           isActive ? 'border-[#E8E2D5]' : 'border-[#D8CFBF]'
         }`}
       >
