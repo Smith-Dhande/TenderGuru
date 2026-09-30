@@ -16,7 +16,7 @@ export const FeaturedCourses = () => {
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
-          <h2 className={`text-2xl sm:text-4xl md:text-5xl font-bold text-[#0B1628] tracking-tight leading-tight mb-3 ${language === 'mr' ? 'font-mr font-semibold' : 'font-editorial font-normal'
+          <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold text-[#0B1628] tracking-tight leading-tight mb-3 ${language === 'mr' ? 'font-mr font-semibold' : 'font-editorial font-normal'
             }`}>
             {t('courses.title')}
           </h2>
