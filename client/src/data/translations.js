@@ -393,7 +393,7 @@ export const translations = {
     },
     courses: {
       title: "Master Government Contracting & E-Procurement",
-      subtitle: "Practical, and expert-led training programs designed to empower contractors, engineers, and MSMEs.",
+      subtitle: " ",
       viewCourse: "View Course",
       enrollNow: "Register Interest",
       close: "Close",

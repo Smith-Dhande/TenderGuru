@@ -1,138 +1,174 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Quote, Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { TestimonialCard } from './Testimonials/TestimonialCard';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const Testimonials = () => {
   const { t, language } = useLanguage();
   const items = t('testimonials.items');
-  const [centerIndex, setCenterIndex] = useState(0); // Center active card index
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const carouselRef = useRef(null);
 
-  const handlePrev = () => {
-    setCenterIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+  const total = items.length;
+
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % total);
+  }, [total]);
+
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + total) % total);
+  }, [total]);
+
+  // Autoplay functionality (5.5s interval, pauses on hover / focus / reduced motion)
+  useEffect(() => {
+    if (isHovered) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const timer = setInterval(() => {
+      handleNext();
+    }, 5500);
+
+    return () => clearInterval(timer);
+  }, [isHovered, handleNext]);
+
+  // Keyboard navigation support
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowLeft') {
+      handlePrev();
+    } else if (e.key === 'ArrowRight') {
+      handleNext();
+    }
   };
 
-  const handleNext = () => {
-    setCenterIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
+  // Helper to compute continuous visual offset (-1 for left side, 0 for center active, 1 for right side)
+  const getOffset = (index) => {
+    let diff = index - activeIndex;
+    if (diff < -1) diff += total;
+    if (diff > 1) diff -= total;
+    return diff;
   };
-
-  // Helper to determine index for Left, Center, Right slots
-  const leftIndex = (centerIndex - 1 + items.length) % items.length;
-  const rightIndex = (centerIndex + 1) % items.length;
-
-  const displaySlots = [
-    { item: items[leftIndex], realIdx: leftIndex, pos: 'left' },
-    { item: items[centerIndex], realIdx: centerIndex, pos: 'center' },
-    { item: items[rightIndex], realIdx: rightIndex, pos: 'right' }
-  ];
 
   return (
-    <section id="testimonials" className="py-16 sm:py-24 bg-[#FAF8F5] border-b border-[#E2DDD5] overflow-hidden">
+    <section id="testimonials" className="py-12 sm:py-20 bg-[#FAF8F5] border-b border-[#E8E2D5] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
-          <span className="text-xs font-bold tracking-widest text-[#93622A] uppercase font-sans">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <span className="text-xs font-mono font-bold tracking-widest text-[#93622A] uppercase">
             {t('testimonials.tag')}
           </span>
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl text-[#0B1628] font-extrabold mt-2 leading-tight ${
-            language === 'mr' ? 'font-mr' : 'font-editorial'
+          <h2 className={`text-2xl sm:text-4xl md:text-5xl text-[#0B1628] font-bold mt-1.5 leading-tight ${
+            language === 'mr' ? 'font-mr font-semibold' : 'font-editorial font-normal'
           }`}>
             {t('testimonials.title')}
           </h2>
         </div>
 
-        {/* 3D Focus Stage (Center Card Always Largest) */}
-        <div className="relative max-w-5xl mx-auto px-2">
-          
-          {/* 3 Slot Display Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center gap-4 sm:gap-6 min-h-[360px] py-6">
-            {displaySlots.map(({ item, realIdx, pos }) => {
-              const isCenter = pos === 'center';
+        {/* Animated Carousel Track Area */}
+        <div
+          ref={carouselRef}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onFocus={() => setIsHovered(true)}
+          onBlur={() => setIsHovered(false)}
+          className="relative max-w-5xl mx-auto focus:outline-none"
+          aria-label="Participant Testimonials Carousel"
+        >
+          {/* Stage Container with responsive height */}
+          <div className="relative h-[310px] xs:h-[280px] sm:h-[310px] md:h-[310px] w-full flex items-center justify-center">
+            {items.map((item, idx) => {
+              const offset = getOffset(idx);
+              const isActive = offset === 0;
+
+              // Calculate responsive transform offset values for both mobile and desktop
+              let transformStyle = '';
+              let opacityStyle = 0;
+              let zIndexStyle = 0;
+              let pointerEventsStyle = 'none';
+
+              if (offset === 0) {
+                transformStyle = 'translate3d(0%, 0, 0) scale(1)';
+                opacityStyle = 1;
+                zIndexStyle = 30;
+                pointerEventsStyle = 'auto';
+              } else if (offset === 1) {
+                transformStyle = 'translate3d(68%, 0, 0) scale(0.85)';
+                opacityStyle = 0.5;
+                zIndexStyle = 10;
+                pointerEventsStyle = 'auto';
+              } else if (offset === -1) {
+                transformStyle = 'translate3d(-68%, 0, 0) scale(0.85)';
+                opacityStyle = 0.5;
+                zIndexStyle = 10;
+                pointerEventsStyle = 'auto';
+              } else {
+                transformStyle = offset > 0 ? 'translate3d(120%, 0, 0) scale(0.7)' : 'translate3d(-120%, 0, 0) scale(0.7)';
+                opacityStyle = 0;
+                zIndexStyle = 0;
+              }
 
               return (
                 <div
-                  key={realIdx}
-                  onClick={() => !isCenter && setCenterIndex(realIdx)}
-                  className={`rounded-xs flex flex-col justify-between transition-all duration-500 ease-out ${
-                    isCenter
-                      ? 'scale-100 sm:scale-105 lg:scale-115 z-30 opacity-100 bg-[#FAF8F5] border-2 border-[#93622A] shadow-2xl p-7 sm:p-8'
-                      : 'scale-90 z-10 opacity-50 bg-[#F2EFE9] border border-[#E2DDD5] shadow-xs p-6 cursor-pointer hover:opacity-80 transition-opacity hidden md:flex'
-                  }`}
+                  key={idx}
+                  style={{
+                    transform: transformStyle,
+                    opacity: opacityStyle,
+                    zIndex: zIndexStyle,
+                    pointerEvents: pointerEventsStyle,
+                    transition: 'all 600ms cubic-bezier(0.25, 1, 0.5, 1)',
+                  }}
+                  className="absolute top-0 bottom-0 left-0 right-0 m-auto w-[82%] sm:w-[68%] lg:w-[58%] max-w-2xl flex flex-col justify-between"
                 >
-                  <div>
-                    {/* Header Rating & Quote */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center space-x-1 text-[#93622A]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className={`fill-[#93622A] ${isCenter ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
-                        ))}
-                      </div>
-
-                      <Quote className={isCenter ? 'w-7 h-7 text-[#93622A]/30' : 'w-5 h-5 text-slate-400/20'} />
-                    </div>
-
-                    {/* Testimonial Quote Text */}
-                    <p className={`leading-relaxed mb-6 ${
-                      isCenter 
-                        ? 'text-[#0B1628] text-base sm:text-lg font-medium drop-shadow-2xs' 
-                        : 'text-slate-600 text-xs sm:text-sm line-clamp-4'
-                    } ${language === 'mr' ? 'font-mr' : 'font-sans'}`}>
-                      "{item.quote}"
-                    </p>
-                  </div>
-
-                  {/* Author Metadata */}
-                  <div className={`pt-4 border-t ${isCenter ? 'border-[#93622A]/20' : 'border-[#E2DDD5]'}`}>
-                    <div className="flex items-center space-x-1.5">
-                      <p className={`font-bold ${isCenter ? 'text-[#0B1628] text-lg' : 'text-slate-800 text-base'} ${
-                        language === 'mr' ? 'font-mr' : 'font-sans'
-                      }`}>
-                        {item.name}
-                      </p>
-                      {isCenter && <CheckCircle2 className="w-4 h-4 text-[#93622A]" />}
-                    </div>
-
-                    <p className={isCenter ? 'text-[#93622A] font-semibold text-xs mt-0.5' : 'text-slate-500 text-xs'}>
-                      {item.role}
-                    </p>
-                  </div>
+                  <TestimonialCard
+                    item={item}
+                    isActive={isActive}
+                    language={language}
+                    onClick={() => !isActive && setActiveIndex(idx)}
+                  />
                 </div>
               );
             })}
           </div>
 
-          {/* Navigation Arrow Controls & Dots */}
-          <div className="flex items-center justify-center space-x-4 mt-10">
+          {/* Refined Navigation Bar (Anchored Right Below Carousel) */}
+          <div className="flex items-center justify-center space-x-5 mt-6 sm:mt-8">
+            {/* Prev Arrow Button */}
             <button
               onClick={handlePrev}
-              className="p-3.5 rounded-full bg-[#FAF8F5] border border-[#93622A]/40 text-[#0B1628] hover:bg-[#0B1628] hover:text-white hover:border-[#0B1628] transition-all duration-200 shadow-sm"
+              className="w-10 h-10 rounded-none bg-white border border-[#93622A]/50 text-[#0B1628] hover:bg-[#0B1628] hover:text-white hover:border-[#0B1628] transition-all duration-300 flex items-center justify-center shadow-2xs cursor-pointer group"
               aria-label="Previous Testimonial"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" />
             </button>
 
-            {/* Pagination Dots */}
-            <div className="flex items-center space-x-2.5">
+            {/* Compact Pagination Bar */}
+            <div className="flex items-center space-x-2 bg-white/90 border border-[#E8E2D5] px-3.5 py-2 rounded-none shadow-2xs">
               {items.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setCenterIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === centerIndex
-                      ? 'w-8 bg-[#93622A]'
-                      : 'w-2.5 bg-[#C5BDB0] hover:bg-slate-500'
+                  onClick={() => setActiveIndex(idx)}
+                  className={`h-2 rounded-none transition-all duration-500 cursor-pointer ${
+                    idx === activeIndex
+                      ? 'w-7 bg-[#93622A]'
+                      : 'w-2 bg-[#D8CFBF] hover:bg-[#93622A]/60'
                   }`}
-                  aria-label={`Go to slide ${idx + 1}`}
+                  aria-label={`Go to testimonial ${idx + 1}`}
                 />
               ))}
             </div>
 
+            {/* Next Arrow Button */}
             <button
               onClick={handleNext}
-              className="p-3.5 rounded-full bg-[#FAF8F5] border border-[#93622A]/40 text-[#0B1628] hover:bg-[#0B1628] hover:text-white hover:border-[#0B1628] transition-all duration-200 shadow-sm"
+              className="w-10 h-10 rounded-none bg-white border border-[#93622A]/50 text-[#0B1628] hover:bg-[#0B1628] hover:text-white hover:border-[#0B1628] transition-all duration-300 flex items-center justify-center shadow-2xs cursor-pointer group"
               aria-label="Next Testimonial"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
             </button>
           </div>
 

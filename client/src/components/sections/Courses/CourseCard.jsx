@@ -3,10 +3,10 @@ import React from 'react';
 export const CourseCard = ({ course, onSelect, language, t }) => {
   const isMarathi = language === 'mr';
   
-  // Title font styling (Prominent & readable)
+  // Title font styling (Desktop unchanged: sm:text-base lg:text-lg. Mobile refined: text-xs)
   const titleFontClass = isMarathi 
-    ? 'font-mr font-bold text-sm sm:text-base lg:text-lg text-[#0B1628]' 
-    : 'font-editorial font-bold text-sm sm:text-base lg:text-lg text-[#0B1628]';
+    ? 'font-mr font-bold text-xs sm:text-base lg:text-lg text-[#0B1628]' 
+    : 'font-editorial font-bold text-xs sm:text-base lg:text-lg text-[#0B1628]';
 
   return (
     <div
@@ -24,15 +24,15 @@ export const CourseCard = ({ course, onSelect, language, t }) => {
         </div>
 
         {/* 2. CONTENT BODY (Title & Subtle Audience/Category Label) */}
-        <div className="p-3 sm:p-4 md:p-5 flex flex-col space-y-1 sm:space-y-1.5">
+        <div className="p-2.5 sm:p-4 md:p-5 flex flex-col space-y-1 sm:space-y-1.5">
           {/* Program Title */}
-          <h3 className={`leading-snug group-hover:text-[#93622A] transition-colors line-clamp-2 ${titleFontClass}`}>
+          <h3 className={`leading-tight sm:leading-snug group-hover:text-[#93622A] transition-colors line-clamp-3 sm:line-clamp-2 ${titleFontClass}`}>
             {course.title}
           </h3>
 
           {/* Small Audience / Category / Level Label */}
           {course.level && (
-            <p className="text-[10px] sm:text-xs font-mono text-slate-500 font-medium uppercase tracking-wider line-clamp-1">
+            <p className="text-[9px] sm:text-xs font-mono text-slate-500 font-medium uppercase tracking-tight sm:tracking-wider truncate sm:line-clamp-1">
               {course.level}
             </p>
           )}
@@ -40,25 +40,26 @@ export const CourseCard = ({ course, onSelect, language, t }) => {
       </div>
 
       {/* 3. DURATION + CTA (Shown ONCE at bottom) */}
-      <div className="p-3 sm:p-4 md:p-5 pt-0 mt-auto">
-        <div className="pt-2.5 sm:pt-3.5 border-t border-[#E8E2D5] flex items-center justify-between gap-2 text-xs">
+      <div className="p-2.5 sm:p-4 md:p-5 pt-0 mt-auto">
+        <div className="pt-2 sm:pt-3.5 border-t border-[#E8E2D5] flex items-center justify-between gap-1 sm:gap-2 text-[10px] sm:text-xs">
           {/* Duration (Displayed ONCE) */}
-          <span className="font-mono text-[10px] sm:text-xs font-bold text-[#0B1628] shrink-0">
+          <span className="font-mono text-[10px] sm:text-xs font-bold text-[#0B1628] shrink-0 whitespace-nowrap">
             {course.duration}
           </span>
 
-          {/* Clear Minimal CTA */}
+          {/* Clear Minimal CTA: Single-line View → on mobile, full View Course → on desktop */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               onSelect(course);
             }}
-            className={`inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#93622A] group-hover:text-[#7A501F] transition-colors ${
+            className={`inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#93622A] group-hover:text-[#7A501F] transition-colors shrink-0 whitespace-nowrap ${
               isMarathi ? 'font-mr font-bold' : 'font-sans'
             }`}
           >
-            <span>{t('courses.viewCourse')}</span>
-            <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
+            <span className="hidden sm:inline">{t('courses.viewCourse')}</span>
+            <span className="sm:hidden">{isMarathi ? 'पहा' : 'View'}</span>
+            <span className="ml-0.5 sm:ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
           </button>
         </div>
       </div>

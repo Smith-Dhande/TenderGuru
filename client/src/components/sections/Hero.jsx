@@ -1,67 +1,106 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { ArrowRight, Phone } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
 
 export const Hero = () => {
-  const { content } = useLanguage();
-  const { hero } = content;
+  const { t, language } = useLanguage();
+  const isMarathi = language === 'mr';
 
   return (
-    <section className="bg-[#FAF8F5] text-[#0F172A] pt-16 sm:pt-24 pb-16 border-b border-[#E7E1D7] relative overflow-hidden">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 text-center space-y-8">
+    <section className="relative overflow-hidden bg-[#FAF8F5] min-h-screen flex items-center justify-center py-10 sm:py-16 border-b border-[#E8E2D5]">
+      
+      {/* Background Image Overlay Container */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
         
-        {/* Refined Eyebrow Label */}
-        <div className="inline-flex items-center justify-center">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9E6B1D]">
-            {hero.eyebrow}
-          </span>
-        </div>
+        {/* Mobile View: Portrait Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center sm:hidden transform scale-100 filter contrast-105 saturate-110 opacity-90 transition-all duration-300"
+          style={{ backgroundImage: `url('/hero_bg_mobile.jpg')` }}
+        />
 
-        {/* Editorial Display Headline (Centered, 2-3 lines max) */}
-        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#0F172A] leading-[1.18] tracking-tight max-w-4xl mx-auto">
-          {hero.title}
-        </h1>
+        {/* Desktop/Tablet View: Landscape Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center hidden sm:block transform scale-100 filter contrast-105 saturate-110 opacity-90 transition-all duration-300"
+          style={{ backgroundImage: `url('/hero_bg.png')` }}
+        />
+        
+        {/* Mobile Contrast Gradients */}
+        <div className="absolute inset-0 sm:hidden bg-gradient-to-b from-[#FAF8F5]/90 via-[#FAF8F5]/65 to-[#FAF8F5]/95" />
+        <div className="absolute inset-0 sm:hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#FAF8F5]/45 to-[#FAF8F5]/90" />
 
-        {/* Centered Supporting Copy (600-750px max width) */}
-        <p className="text-lg sm:text-xl text-[#334155] leading-relaxed max-w-2xl mx-auto font-normal">
-          {hero.subtitle}
-        </p>
+        {/* Desktop Contrast Gradients */}
+        <div className="hidden sm:block absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/55 via-transparent to-[#FAF8F5]/85" />
+        <div className="hidden sm:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#FAF8F5]/35 via-transparent to-[#FAF8F5]/70" />
+      </div>
 
-        {/* Single Strong Primary CTA + Secondary Link */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-5">
-          <a
-            href="#training"
-            className="bg-[#0B1727] hover:bg-[#1B365D] text-white font-semibold text-base px-8 py-3.5 rounded-[2px] transition-colors inline-flex items-center gap-2.5 shadow-sm"
-          >
-            <span>{hero.primaryCta}</span>
-            <ArrowRight size={16} className="text-[#C58B2B]" />
-          </a>
-
-          <a
-            href={`tel:${hero.phoneCta.replace(/\s+/g, '')}`}
-            className="text-base font-semibold text-[#0B1727] hover:text-[#9E6B1D] transition-colors inline-flex items-center gap-2"
-          >
-            <Phone size={16} className="text-[#9E6B1D]" />
-            <span>{hero.secondaryCta}: {hero.phoneCta}</span>
-          </a>
-        </div>
-
-        {/* Editorial Founder Photograph (POSITIONED BELOW THE HERO MESSAGE) */}
-        <div className="pt-10 max-w-3xl mx-auto">
-          <div className="bg-white p-3 sm:p-4 border border-[#D8CFBF] shadow-sm">
-            <div className="overflow-hidden bg-[#F3EFE9]">
-              <img
-                src="/owner&founder/image.png"
-                alt="eTender Guru Founder & Advisory Board"
-                className="w-full h-auto max-h-[520px] object-cover object-top"
-              />
-            </div>
-            <div className="pt-3 pb-1 text-center border-t border-[#E7E1D7] mt-3">
-              <span className="text-xs font-serif font-bold text-[#0F172A] tracking-wide block">
-                {hero.founderCaption}
+      {/* Main Centered Content Container */}
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full my-auto z-10">
+        
+        {/* Top Center Logo & Official Brand Display */}
+        <div className="flex flex-col items-center justify-center mb-5 sm:mb-6">
+          <a href="#home" className="flex flex-col items-center group">
+            <img
+              src="/navbar_logo.png"
+              alt="eTender Guru"
+              className="h-14 sm:h-18 md:h-20 w-auto object-contain mb-2 drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+              onError={(e) => {
+                e.currentTarget.src = "/logoTenderGuru.png";
+              }}
+            />
+            <div className="text-center">
+              <span className="font-brand-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0B1628] tracking-tight leading-none">
+                eTender <span className="text-[#93622A]">Guru</span>
+              </span>
+              <span className="text-[10px] sm:text-xs tracking-widest uppercase text-slate-600 font-bold block mt-1.5 font-mono">
+                {isMarathi ? 'शासकीय निविदा मार्गदर्शक व सल्लागार' : 'Tender Consultancy & Education'}
               </span>
             </div>
-          </div>
+          </a>
+        </div>
+
+        {/* Reduced Headline Size */}
+        <div className="mb-3 sm:mb-4 max-w-2xl mx-auto">
+          <h1 
+            className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#0B1628] font-bold tracking-tight leading-snug drop-shadow-xs ${
+              isMarathi ? 'font-mr font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl' : 'font-editorial'
+            }`}
+          >
+            {t('hero.title')}
+          </h1>
+        </div>
+
+        {/* Reduced Supporting Description */}
+        <p 
+          className={`max-w-xl mx-auto text-xs sm:text-sm md:text-base text-slate-700 font-medium leading-relaxed mb-6 sm:mb-8 px-2 ${
+            isMarathi ? 'font-mr text-xs sm:text-sm md:text-base' : 'font-sans'
+          }`}
+        >
+          {t('hero.subtitle')}
+        </p>
+
+        {/* Compact Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 max-w-xs sm:max-w-sm md:max-w-md mx-auto w-full">
+          {/* Primary CTA */}
+          <a
+            href="#courses"
+            className={`w-full sm:w-auto inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-none border border-[#0B1628] text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-200 group cursor-pointer ${
+              isMarathi ? 'font-mr text-xs sm:text-sm font-bold' : 'font-sans'
+            }`}
+          >
+            <span>{t('hero.primaryCta')}</span>
+            <ArrowRight className="ml-1.5 w-3.5 h-3.5 text-amber-300 transition-transform group-hover:translate-x-1" />
+          </a>
+
+          {/* Secondary CTA */}
+          <a
+            href="#webinars"
+            className={`w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-[#FAF8F5] text-[#0B1628] hover:text-[#93622A] px-5 py-2.5 sm:px-6 sm:py-3 rounded-none border border-[#93622A] text-xs font-bold uppercase tracking-wider shadow-2xs transition-all duration-200 cursor-pointer ${
+              isMarathi ? 'font-mr text-xs sm:text-sm font-bold' : 'font-sans'
+            }`}
+          >
+            <Calendar className="mr-1.5 w-3.5 h-3.5 text-[#7A501F]" />
+            <span>{t('hero.secondaryCta')}</span>
+          </a>
         </div>
 
       </div>

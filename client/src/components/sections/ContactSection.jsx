@@ -21,26 +21,24 @@ export const ContactSection = () => {
   return (
     <section id="contact" className="py-14 sm:py-20 bg-[#F4F0E8] border-b border-[#E8E2D5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="max-w-3xl mb-12">
           <span className="text-xs font-semibold tracking-widest text-[#93622A] uppercase font-sans">
             {t('contact.tag')}
           </span>
-          <h2 className={`text-3xl sm:text-4xl text-[#0B1628] font-bold mt-2 mb-3 leading-tight ${
-            language === 'mr' ? 'font-mr font-semibold' : 'font-editorial font-normal'
-          }`}>
+          <h2 className={`text-3xl sm:text-4xl text-[#0B1628] font-bold mt-2 mb-3 leading-tight ${language === 'mr' ? 'font-mr font-semibold' : 'font-editorial font-normal'
+            }`}>
             {t('contact.title')}
-          </h2>
-          <p className={`text-base text-slate-700 leading-relaxed ${
-            language === 'mr' ? 'font-mr' : 'font-sans'
-          }`}>
+          </h2>s
+          <p className={`text-base text-slate-700 leading-relaxed ${language === 'mr' ? 'font-mr' : 'font-sans'
+            }`}>
             {t('contact.subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
+
           {/* Left Column - Form */}
           <div className="lg:col-span-7 bg-[#FAF8F5] border border-[#E2DDD5] p-6 sm:p-8 rounded-xs shadow-2xs">
             {submitted ? (
@@ -56,9 +54,8 @@ export const ContactSection = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${
-                    language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                  }`}>
+                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
+                    }`}>
                     {t('contact.form.name')} *
                   </label>
                   <input
@@ -72,9 +69,8 @@ export const ContactSection = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${
-                      language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                    }`}>
+                    <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
+                      }`}>
                       {t('contact.form.phone')} *
                     </label>
                     <input
@@ -87,9 +83,8 @@ export const ContactSection = () => {
                   </div>
 
                   <div>
-                    <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${
-                      language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                    }`}>
+                    <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
+                      }`}>
                       {t('contact.form.email')}
                     </label>
                     <input
@@ -102,9 +97,8 @@ export const ContactSection = () => {
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${
-                    language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                  }`}>
+                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
+                    }`}>
                     {t('contact.form.category')}
                   </label>
                   <input
@@ -117,9 +111,8 @@ export const ContactSection = () => {
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${
-                    language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                  }`}>
+                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
+                    }`}>
                     {t('contact.form.message')}
                   </label>
                   <textarea
@@ -132,9 +125,8 @@ export const ContactSection = () => {
 
                 <button
                   type="submit"
-                  className={`w-full inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white py-3.5 px-6 rounded-xs text-sm font-bold shadow-xs transition-colors ${
-                    language === 'mr' ? 'font-mr text-base' : 'font-sans uppercase tracking-wider'
-                  }`}
+                  className={`w-full inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white py-3.5 px-6 rounded-xs text-sm font-bold shadow-xs transition-colors ${language === 'mr' ? 'font-mr text-base' : 'font-sans uppercase tracking-wider'
+                    }`}
                 >
                   <span>{t('contact.form.submit')}</span>
                   <Send className="ml-2 w-4 h-4 text-amber-300" />
@@ -146,7 +138,7 @@ export const ContactSection = () => {
           {/* Right Column - Official Business Details */}
           <div className="lg:col-span-5 bg-[#0B1628] text-white p-6 sm:p-8 rounded-xs border border-[#16243B] flex flex-col justify-between">
             <div className="space-y-6">
-              
+
               <div>
                 <span className="text-xs font-semibold text-amber-300 uppercase tracking-widest block mb-1">
                   {t('contact.info.phoneTitle')}
@@ -197,7 +189,7 @@ export const ContactSection = () => {
 
             <div className="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-400">
               <p className={language === 'mr' ? 'font-mr' : 'font-sans'}>
-                {language === 'mr' 
+                {language === 'mr'
                   ? 'टीप: eTender Guru ही एक शैक्षणिक व सल्लागार संस्था आहे.'
                   : 'Note: eTender Guru is an independent education & consultancy institute.'}
               </p>

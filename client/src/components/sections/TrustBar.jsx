@@ -32,7 +32,7 @@ export const TrustBar = () => {
             </p>
 
             {/* Subtle Summary Indicator Badge */}
-            <div className="inline-flex items-center space-x-2 bg-[#FAF8F5] border border-[#E2DDD5] px-3.5 py-2 rounded-xs text-xs font-medium text-[#7A501F]">
+            <div className="inline-flex items-center space-x-2 bg-[#FAF8F5] border border-[#E2DDD5] px-3.5 py-2 rounded-none text-xs font-medium text-[#7A501F]">
               <span className="w-2 h-2 rounded-full bg-[#93622A]" />
               <span className={language === 'mr' ? 'font-mr' : 'font-sans'}>
                 {language === 'mr' 
@@ -48,22 +48,27 @@ export const TrustBar = () => {
             </div>
           </div>
 
-          {/* Right Column - Horizontally Scrollable Track on Mobile, 2x2 Grid on Desktop */}
-          <div className="lg:col-span-8">
+          {/* Right Column - Taped-to-Wall Cards Grid */}
+          <div className="lg:col-span-8 pt-2">
             
             {/* Mobile View: Horizontally Scrollable Card Track */}
-            <div className="sm:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none">
+            <div className="sm:hidden flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 -mx-4 px-4 scrollbar-none pt-4">
               {groups.map((item, idx) => (
                 <div 
                   key={idx}
-                  className="w-[82vw] shrink-0 snap-center bg-[#FAF8F5] border border-[#E2DDD5] p-5 rounded-xs shadow-2xs flex flex-col justify-between"
+                  className="relative w-[82vw] shrink-0 snap-center bg-white border border-[#E2DDD5] p-5 rounded-none shadow-sm flex flex-col justify-between group mt-2"
                 >
+                  {/* Tape Strip Accent (Taped to Wall) */}
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-[#E5DDD0]/80 border-l border-r border-[#D3C8B5]/60 shadow-[0_1px_2px_rgba(0,0,0,0.06)] rotate-[-1.5deg] pointer-events-none z-10 flex items-center justify-center">
+                    <div className="w-full h-full border-t border-b border-white/50" />
+                  </div>
+
                   <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-mono font-bold text-[#93622A] bg-[#93622A]/10 px-2 py-0.5 rounded-xs">
+                    <div className="flex items-center justify-between mb-3 pt-1">
+                      <span className="text-xs font-mono font-bold text-[#93622A] bg-[#93622A]/10 px-2 py-0.5 rounded-none">
                         {item.num}
                       </span>
-                      <span className="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                      <span className="text-[10px] text-slate-500 font-bold tracking-wider uppercase font-mono">
                         {language === 'mr' ? 'स्तंभ' : 'Pillar'} {idx + 1} of 4
                       </span>
                     </div>
@@ -88,41 +93,57 @@ export const TrustBar = () => {
               ))}
             </div>
 
-            {/* Desktop / Tablet View: UNCHANGED 2x2 Grid */}
-            <div className="hidden sm:grid sm:grid-cols-2 gap-4 lg:gap-5">
-              {groups.map((item, idx) => (
-                <div 
-                  key={idx}
-                  className="bg-[#FAF8F5] border border-[#E2DDD5] p-5 sm:p-6 rounded-xs hover:border-[#93622A]/60 transition-colors group flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-mono font-bold text-[#93622A] bg-[#93622A]/10 px-2 py-0.5 rounded-xs">
-                        {item.num}
-                      </span>
-                      <span className="text-[11px] text-slate-600 font-medium tracking-wider uppercase">
-                        {language === 'mr' ? 'क्षेत्र गट' : 'Pillar'}
-                      </span>
+            {/* Desktop / Tablet View: Taped to Wall 2x2 Grid */}
+            <div className="hidden sm:grid sm:grid-cols-2 gap-6 lg:gap-7 pt-3">
+              {groups.map((item, idx) => {
+                // Subtle organic tilt for taped-to-wall paper realism
+                const tiltClasses = [
+                  'rotate-[-0.7deg]',
+                  'rotate-[0.7deg]',
+                  'rotate-[0.6deg]',
+                  'rotate-[-0.5deg]'
+                ];
+                const cardTilt = tiltClasses[idx % 4];
+
+                return (
+                  <div 
+                    key={idx}
+                    className={`relative bg-white border border-[#E2DDD5] hover:border-[#93622A] p-6 sm:p-7 rounded-none shadow-xs hover:shadow-md transition-all duration-300 transform ${cardTilt} hover:rotate-0 hover:-translate-y-1 group flex flex-col justify-between mt-2`}
+                  >
+                    {/* Paper Tape Strip Accent (Taped to Wall) */}
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#E6DEC6]/85 backdrop-blur-[1px] border-l border-r border-[#D3C8AF] shadow-[0_1px_2px_rgba(0,0,0,0.06)] rotate-[-1.5deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-none z-10 flex items-center justify-center">
+                      <div className="w-full h-full border-t border-b border-white/50" />
                     </div>
 
-                    <h3 className={`text-lg font-bold text-[#0B1628] mb-1 group-hover:text-[#93622A] transition-colors ${
-                      language === 'mr' ? 'font-mr text-xl' : 'font-sans'
-                    }`}>
-                      {item.title}
-                    </h3>
+                    <div>
+                      <div className="flex items-center justify-between mb-3 pt-1">
+                        <span className="text-xs font-mono font-bold text-[#93622A] bg-[#93622A]/10 px-2.5 py-0.5 rounded-none">
+                          {item.num}
+                        </span>
+                        <span className="text-[11px] text-slate-500 font-mono font-bold tracking-wider uppercase">
+                          {language === 'mr' ? 'क्षेत्र गट' : 'PILLAR'}
+                        </span>
+                      </div>
 
-                    <p className="text-xs font-semibold text-[#7A501F] mb-3">
-                      {item.subtitle}
-                    </p>
+                      <h3 className={`text-lg font-bold text-[#0B1628] mb-1 group-hover:text-[#93622A] transition-colors ${
+                        language === 'mr' ? 'font-mr text-xl' : 'font-sans'
+                      }`}>
+                        {item.title}
+                      </h3>
 
-                    <p className={`text-xs sm:text-sm text-slate-700 leading-relaxed ${
-                      language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                    }`}>
-                      {item.desc}
-                    </p>
+                      <p className="text-xs font-semibold text-[#7A501F] mb-3">
+                        {item.subtitle}
+                      </p>
+
+                      <p className={`text-xs sm:text-sm text-slate-700 leading-relaxed ${
+                        language === 'mr' ? 'font-mr text-sm' : 'font-sans'
+                      }`}>
+                        {item.desc}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
           </div>
