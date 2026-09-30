@@ -1,167 +1,153 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { FileText, ArrowRight, Video } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Clock, ShieldCheck, BookOpen, Sparkles } from 'lucide-react';
 
 export const ResourcesSection = () => {
   const { t, language } = useLanguage();
+  const isMarathi = language === 'mr';
+  const [activeItem, setActiveItem] = useState(0);
 
   const resourcesList = [
     {
       code: "01",
-      tag: language === 'mr' ? 'कागदपत्रे तपासणी' : 'Primary Document Checklist',
-      title: language === 'mr' ? 'टेंडरसाठी आवश्यक १० प्राथमिक कागदपत्रे' : '10 Essential Primary Documents for Tender Eligibility',
-      desc: language === 'mr' ? 'शासकीय निविदेत भाग घेण्यापूर्वी कोणती कागदपत्रे तयार असावीत याची अचूक यादी.' : 'Comprehensive checklist of mandatory registration certificates and financial documents.',
+      tag: isMarathi ? 'कागदपत्रे तपासणी' : 'Primary Document Checklist',
+      format: isMarathi ? 'आवश्यक तपासणी यादी' : 'Mandatory Checklist',
+      readTime: isMarathi ? '३ मिनिटे' : '3 Min Read',
+      title: isMarathi ? 'टेंडरसाठी आवश्यक १० प्राथमिक कागदपत्रे' : '10 Essential Primary Documents for Tender Eligibility',
+      highlights: isMarathi ? [
+        'GST नोंदणी व मागील ३ वर्षांचे आयटी रिटर्न (ITR)',
+        'बँक सॉल्व्हन्सी व सीए उलाढाल प्रमाणपत्र'
+      ] : [
+        'GST Reg. & 3 Yrs ITR Returns',
+        'Bank Solvency & CA Turnover Cert'
+      ]
     },
     {
       code: "02",
-      tag: language === 'mr' ? 'GeM नोंदणी' : 'GeM Seller Registration',
-      title: language === 'mr' ? 'GeM (गव्हर्नमेंट ई-मार्केटप्लेस) मार्गदर्शक' : 'GeM Portal Vendor Registration & Cataloging',
-      desc: language === 'mr' ? 'केंद्र व राज्य शासनाच्या GeM पोर्टलवर मोफत विक्रेता नोंदणी कशी करावी.' : 'Step-by-step orientation on cataloging goods & services on the central GeM portal.',
+      tag: isMarathi ? 'GeM नोंदणी' : 'GeM Seller Registration',
+      format: isMarathi ? 'स्टेप-बाय-स्टेप मार्गदर्शक' : 'Step-by-Step Guide',
+      readTime: isMarathi ? '५ मिनिटे' : '5 Min Read',
+      title: isMarathi ? 'GeM (गव्हर्नमेंट ई-मार्केटप्लेस) विक्रेता नोंदणी' : 'GeM Portal Vendor Registration & Cataloging Guide',
+      highlights: isMarathi ? [
+        'OEM व रीविक्रेता प्रोफाइल निर्मिती',
+        'L1 पर्चेस ऑर्डर व प्रॉडक्ट लिस्टिंग'
+      ] : [
+        'OEM & Reseller Profile Setup',
+        'L1 Orders & Cataloging Protocol'
+      ]
     },
     {
       code: "03",
-      tag: language === 'mr' ? 'ई-प्रोक्योरमेंट' : 'e-Procurement Bidding',
-      title: language === 'mr' ? 'ई-निविदा बोली भरण्याची प्रक्रिया' : 'e-Tender Bidding & DSC Submission Guide',
-      desc: language === 'mr' ? 'डिजिटल स्वाक्षरी (DSC) वापरून ऑनलाइन तांत्रिक व आर्थिक बोली भरण्याच्या अचूक पद्धती.' : 'Practical walkthrough of uploading technical and financial bids using DSC.',
+      tag: isMarathi ? 'ई-प्रोक्योरमेंट बोली' : 'e-Procurement Bidding',
+      format: isMarathi ? 'तांत्रिक नियमावली' : 'Technical Protocol',
+      readTime: isMarathi ? '४ मिनिटे' : '4 Min Read',
+      title: isMarathi ? 'ई-निविदा बोली भरण्याची अचूक तांत्रिक प्रक्रिया' : 'e-Tender Technical Bidding & DSC Submission Guide',
+      highlights: isMarathi ? [
+        'Class-3 DSC टोकन संगणक सेटअप',
+        'BOQ Excel शीट एन्क्रिप्शन सबमिशन'
+      ] : [
+        'Class-3 DSC Token Setup',
+        'BOQ Excel Price Envelope Encryption'
+      ]
     }
   ];
 
+  const currentActiveResource = resourcesList[activeItem];
+
   return (
-    <section id="resources" className="py-12 sm:py-24 bg-[#FAF8F5] border-b border-[#E2DDD5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="resources" className="py-16 sm:py-24 bg-[#FAF7F2] border-b border-[#E8E2D5] relative overflow-hidden select-none">
+      {/* Background Watermark Accent */}
+      <div className="absolute top-10 right-4 pointer-events-none opacity-[0.03] text-[8rem] sm:text-[14rem] font-brand-display text-[#0B1628] leading-none whitespace-nowrap hidden lg:block">
+        TENDER GURU
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mb-8 sm:mb-16">
-          <div className="inline-flex items-center space-x-2 bg-[#93622A]/10 text-[#7A501F] text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3">
-            <Video className="w-3.5 h-3.5 text-[#93622A]" />
-            <span>{t('resources.tag')}</span>
+        {/* Institutional Section Header (Preserved Exactly As Requested) */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 sm:mb-16 pb-8 border-b border-[#E8E2D5] gap-6">
+          <div className="max-w-2xl">
+            <div className="flex items-center space-x-2 mb-3">
+              <span className="h-2 w-2 rounded-full bg-[#C89B53]"></span>
+              <span className="text-[11px] font-mono font-bold tracking-widest text-[#93622A] uppercase">
+                {t('resources.tag')}
+              </span>
+            </div>
+            <h2 className={`text-2xl sm:text-4xl lg:text-5xl text-[#0B1628] font-bold tracking-tight leading-tight ${
+              isMarathi ? 'font-mr font-bold' : 'font-editorial'
+            }`}>
+              {t('resources.title')}
+            </h2>
           </div>
-
-          <h2 className={`text-2xl sm:text-4xl md:text-5xl text-[#0B1628] font-extrabold mb-2.5 leading-tight ${
-            language === 'mr' ? 'font-mr' : 'font-editorial'
-          }`}>
-            {t('resources.title')}
-          </h2>
-
-          <p className={`text-xs sm:text-lg text-slate-600 leading-relaxed ${
-            language === 'mr' ? 'font-mr text-xs sm:text-base' : 'font-sans'
-          }`}>
-            {t('resources.desc')}
-          </p>
+          
+          <div className="max-w-md">
+            <p className={`text-xs sm:text-sm text-slate-600 leading-relaxed border-l-2 border-[#C89B53] pl-4 py-1 ${
+              isMarathi ? 'font-mr' : 'font-sans'
+            }`}>
+              {t('resources.desc')}
+            </p>
+          </div>
         </div>
 
-        {/* Video & Knowledge Hub Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
+        {/* Centered YouTube-Style Masterclass Video Theater Showcase */}
+        <div className="max-w-4xl mx-auto mb-12">
           
-          {/* Left Column - Direct HTML5 Video Player */}
-          <div className="lg:col-span-6 bg-[#0B1628] rounded-xs border border-[#16243B] overflow-hidden shadow-lg flex flex-col justify-between">
-            <div className="relative aspect-video bg-black flex items-center justify-center">
-              <video 
-                controls 
-                preload="metadata"
-                className="w-full h-full object-cover"
-              >
-                <source src="/owner&founder/ownertalk.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
+          {/* 16:9 Aspect Video Container (YouTube Theater Frame) */}
+          <div className="relative aspect-video bg-black rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 border-[#C89B53]/30">
+            <video 
+              controls 
+              preload="metadata"
+              className="w-full h-full object-cover"
+            >
+              <source src="/owner&founder/ownertalk.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          
+          {/* YouTube Video Title */}
+          <h3 className={`text-lg sm:text-2xl font-bold text-[#0B1628] mt-5 mb-3 leading-snug ${
+            isMarathi ? 'font-mr text-xl sm:text-2xl' : 'font-sans'
+          }`}>
+            {isMarathi ? 'शासकीय निविदा प्रक्रिया आणि यश प्राप्तीचे सूत्र (अधिकृत सत्र)' : 'Government Tender Advisory & Technical Bidding Masterclass'}
+          </h3>
+
+          {/* YouTube Channel & Action Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-y border-[#E8E2D5] gap-4">
             
-            <div className="p-4 sm:p-6 text-white bg-[#0B1628] flex justify-between items-center border-t border-slate-800">
+            {/* Channel Info */}
+            <div className="flex items-center space-x-3">
+              <div className="w-11 h-11 rounded-full bg-[#0B1628] border-2 border-[#C89B53] flex items-center justify-center text-amber-300 font-brand-display font-bold text-base shrink-0 shadow-sm">
+                TG
+              </div>
               <div>
-                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-300 font-mono block mb-0.5">
-                  {language === 'mr' ? 'अधिकृत व्हिडिओ सत्र' : 'Official Educational Video'}
+                <div className="flex items-center space-x-1.5">
+                  <span className="font-bold text-[#0B1628] text-sm sm:text-base">
+                    eTender Guru Official
+                  </span>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 fill-emerald-100" />
+                </div>
+                <span className="text-xs text-slate-500 font-medium block">
+                  {isMarathi ? 'मार्गदर्शक: हर्षद बर्गे (संस्थापक)' : 'Presenter: Harshad Barge (Founder)'}
                 </span>
-                <p className={`font-bold text-sm sm:text-lg ${language === 'mr' ? 'font-mr' : 'font-sans'}`}>
-                  {language === 'mr' ? 'शासकीय निविदा मार्गदर्शक सत्र' : 'Government Tender Advisory Session'}
-                </p>
-                <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
-                  {language === 'mr' ? 'मार्गदर्शक: हर्षद बर्गे (संस्थापक, ई-टेंडर गुरु)' : 'Presenter: Harshad Barge (Founder, eTender Guru)'}
-                </p>
               </div>
             </div>
-          </div>
 
-          {/* Right Column - Horizontally Scrollable Resource Track on Mobile, UNCHANGED Column on Desktop */}
-          <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
-            
-            {/* Mobile View: Horizontally Scrollable Resource Cards Track */}
-            <div className="sm:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 scrollbar-none">
-              {resourcesList.map((item, idx) => (
-                <div 
-                  key={idx}
-                  className="w-[82vw] shrink-0 snap-center bg-[#FAF8F5] border border-[#E2DDD5] p-4 rounded-xs shadow-2xs flex flex-col justify-between"
-                >
-                  <div className="flex items-center space-x-3 mb-2">
-                    <div className="w-8 h-8 bg-[#0B1628] text-amber-300 rounded-xs flex items-center justify-center font-mono font-bold text-xs shrink-0">
-                      {item.code}
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#93622A] bg-[#93622A]/10 px-2 py-0.5 rounded-xs truncate">
-                      {item.tag}
-                    </span>
-                  </div>
-
-                  <h4 className={`text-sm font-bold text-[#0B1628] mb-1 ${
-                    language === 'mr' ? 'font-mr text-base' : 'font-sans'
-                  }`}>
-                    {item.title}
-                  </h4>
-
-                  <p className={`text-xs text-slate-600 leading-relaxed ${
-                    language === 'mr' ? 'font-mr text-xs' : 'font-sans'
-                  }`}>
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Desktop View: UNCHANGED Vertical Column */}
-            <div className="hidden sm:flex sm:flex-col space-y-4">
-              {resourcesList.map((item, idx) => (
-                <div 
-                  key={idx}
-                  className="bg-[#FAF8F5] border border-[#E2DDD5] p-5 sm:p-6 rounded-xs hover:border-[#93622A] transition-all duration-200 shadow-2xs group flex items-start space-x-4"
-                >
-                  <div className="w-10 h-10 bg-[#0B1628] text-amber-300 rounded-xs flex items-center justify-center shrink-0 font-mono font-bold text-sm mt-0.5">
-                    {item.code}
-                  </div>
-
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#93622A] bg-[#93622A]/10 px-2 py-0.5 rounded-xs">
-                        {item.tag}
-                      </span>
-                      <FileText className="w-4 h-4 text-slate-400 group-hover:text-[#93622A] transition-colors" />
-                    </div>
-
-                    <h4 className={`text-base sm:text-lg font-bold text-[#0B1628] mb-1 group-hover:text-[#93622A] transition-colors ${
-                      language === 'mr' ? 'font-mr text-lg sm:text-xl' : 'font-sans'
-                    }`}>
-                      {item.title}
-                    </h4>
-
-                    <p className={`text-xs sm:text-sm text-slate-600 leading-relaxed ${
-                      language === 'mr' ? 'font-mr' : 'font-sans'
-                    }`}>
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Action Link */}
-            <div className="pt-2">
+            {/* YouTube Right Action Buttons */}
+            <div className="flex items-center space-x-3">
+              <span className="text-xs font-mono font-bold text-[#93622A] bg-[#93622A]/10 px-3 py-1.5 rounded-full border border-[#C89B53]/30">
+                15 MIN LESSON
+              </span>
+              
               <a
                 href="#contact"
-                className={`w-full inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white py-3 sm:py-3.5 px-6 rounded-xs text-xs sm:text-sm font-bold shadow-md transition-colors ${
-                  language === 'mr' ? 'font-mr text-sm sm:text-base' : 'font-sans uppercase tracking-wider'
+                className={`inline-flex items-center justify-center bg-gradient-to-r from-[#C89B53] to-[#93622A] hover:from-[#93622A] hover:to-[#7A501F] text-white px-5 py-2 rounded-full text-xs sm:text-sm font-bold shadow-md transition-all ${
+                  isMarathi ? 'font-mr' : 'font-sans uppercase tracking-wider'
                 }`}
               >
                 <span>{t('resources.cta')}</span>
-                <ArrowRight className="ml-2 w-4 h-4 text-amber-300" />
+                <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
               </a>
             </div>
+
           </div>
 
         </div>
@@ -170,3 +156,6 @@ export const ResourcesSection = () => {
     </section>
   );
 };
+
+
+

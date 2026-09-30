@@ -135,50 +135,50 @@ export const ContactSection = () => {
             )}
           </div>
 
-          {/* Right Column - Official Business Details */}
-          <div className="lg:col-span-5 bg-[#0B1628] text-white p-6 sm:p-8 rounded-xs border border-[#16243B] flex flex-col justify-between">
+          {/* Right Column - Official Business Details (Matching Site Theme) */}
+          <div className="lg:col-span-5 bg-[#FAF8F5] border-2 border-[#C89B53]/50 hover:border-[#C89B53] text-[#0B1628] p-6 sm:p-8 rounded-3xl transition-all duration-300 shadow-xs flex flex-col justify-between">
             <div className="space-y-6">
 
               <div>
-                <span className="text-xs font-semibold text-amber-300 uppercase tracking-widest block mb-1">
+                <span className="text-xs font-mono font-bold text-[#93622A] uppercase tracking-widest block mb-1">
                   {t('contact.info.phoneTitle')}
                 </span>
-                <p className="text-xl font-bold text-white flex items-center space-x-2">
-                  <Phone className="w-5 h-5 text-amber-300" />
+                <p className="text-xl sm:text-2xl font-bold text-[#0B1628] flex items-center space-x-2">
+                  <Phone className="w-5 h-5 text-[#93622A]" />
                   <span>+91 99759 17001</span>
                 </p>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-600 mt-1 font-medium">
                   {language === 'mr' ? 'सोमवार ते शनिवार (सकाळी १० ते संध्याकाळी ६)' : 'Monday to Saturday (10 AM to 6 PM)'}
                 </p>
               </div>
 
-              <div className="h-[1px] bg-slate-800" />
+              <div className="h-[1px] bg-[#E8E2D5]" />
 
               <div>
-                <span className="text-xs font-semibold text-amber-300 uppercase tracking-widest block mb-2">
+                <span className="text-xs font-mono font-bold text-[#93622A] uppercase tracking-widest block mb-2">
                   {t('contact.info.addressTitle')}
                 </span>
-                <div className="flex items-start space-x-3 text-slate-200 text-sm leading-relaxed">
-                  <MapPin className="w-5 h-5 text-amber-300 shrink-0 mt-1" />
-                  <p className={language === 'mr' ? 'font-mr text-base' : 'font-sans'}>
+                <div className="flex items-start space-x-3 text-slate-700 text-sm leading-relaxed">
+                  <MapPin className="w-5 h-5 text-[#93622A] shrink-0 mt-0.5" />
+                  <p className={language === 'mr' ? 'font-mr text-base' : 'font-sans font-medium'}>
                     {t('contact.info.address')}
                   </p>
                 </div>
               </div>
 
-              <div className="h-[1px] bg-slate-800" />
+              <div className="h-[1px] bg-[#E8E2D5]" />
 
               <div>
-                <span className="text-xs font-semibold text-amber-300 uppercase tracking-widest block mb-2">
+                <span className="text-xs font-mono font-bold text-[#93622A] uppercase tracking-widest block mb-2">
                   {language === 'mr' ? 'अधिकृत कंपनी व प्रमाणन' : 'Corporate Entity'}
                 </span>
-                <div className="flex items-start space-x-3 text-slate-200 text-sm">
-                  <Building2 className="w-5 h-5 text-amber-300 shrink-0 mt-0.5" />
+                <div className="flex items-start space-x-3 text-slate-700 text-sm">
+                  <Building2 className="w-5 h-5 text-[#93622A] shrink-0 mt-0.5" />
                   <div>
-                    <p className={`font-semibold text-white ${language === 'mr' ? 'font-mr' : 'font-sans'}`}>
+                    <p className={`font-bold text-[#0B1628] ${language === 'mr' ? 'font-mr text-base' : 'font-sans'}`}>
                       {t('contact.info.company')}
                     </p>
-                    <p className="text-xs text-amber-300/90 font-medium mt-1">
+                    <p className="text-xs text-[#93622A] font-bold mt-1">
                       {t('contact.info.iso')}
                     </p>
                   </div>
@@ -187,7 +187,7 @@ export const ContactSection = () => {
 
             </div>
 
-            <div className="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-400">
+            <div className="mt-8 pt-6 border-t border-[#E8E2D5] text-xs text-slate-500">
               <p className={language === 'mr' ? 'font-mr' : 'font-sans'}>
                 {language === 'mr'
                   ? 'टीप: eTender Guru ही एक शैक्षणिक व सल्लागार संस्था आहे.'
