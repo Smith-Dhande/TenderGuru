@@ -17,9 +17,10 @@ export const WebinarSection = () => {
             
             {/* Left Column - Content */}
             <div className="lg:col-span-8">
-              <div className="inline-flex items-center space-x-2 bg-[#93622A]/10 text-[#7A501F] text-[11px] sm:text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-xs mb-3">
-                <Video className="w-3.5 h-3.5 text-[#93622A]" />
-                <span>{t('webinar.tag')}</span>
+              <div className="mb-3">
+                <span className="text-xs font-semibold tracking-widest text-[#93622A] uppercase font-sans">
+                  {t('webinar.tag')}
+                </span>
               </div>
 
               <h2 className={`text-xl sm:text-3xl lg:text-4xl text-[#0B1628] font-bold mb-2.5 ${
@@ -45,8 +46,8 @@ export const WebinarSection = () => {
                 </p>
               </div>
 
-              {/* Bullet Features */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 mb-6">
+              {/* Bullet Features (Hidden on mobile, visible on desktop) */}
+              <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 mb-6">
                 {features.map((item, idx) => (
                   <div key={idx} className="flex items-center space-x-2 text-xs sm:text-sm text-[#16243B]">
                     <CheckCircle className="w-4 h-4 text-[#93622A] shrink-0" />
@@ -76,7 +77,7 @@ export const WebinarSection = () => {
 
               <a
                 href="#contact"
-                className={`w-full inline-flex items-center justify-center bg-[#93622A] hover:bg-[#7A501F] text-white px-5 py-3 rounded-xs text-xs sm:text-sm font-bold shadow-xs transition-colors ${
+                className={`w-full inline-flex items-center justify-center bg-[#93622A] hover:bg-[#7A501F] text-white px-5 py-3 rounded-md text-xs sm:text-sm font-bold shadow-xs transition-colors ${
                   language === 'mr' ? 'font-mr text-sm sm:text-base' : 'font-sans'
                 }`}
               >

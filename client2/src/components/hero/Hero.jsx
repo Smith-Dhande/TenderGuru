@@ -77,10 +77,10 @@ export const Hero = () => {
               }}
             />
             <div className="text-center">
-              <span className="font-brand-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0B1628] tracking-tight leading-none">
-                eTender <span className="text-[#93622A]">Guru</span>
+              <span className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold text-[#0B1628] tracking-tight leading-none drop-shadow-xs">
+                eTender <span className="text-[#93622A] italic font-semibold">Guru</span>
               </span>
-              <span className="text-[10px] sm:text-xs tracking-widest uppercase text-slate-600 font-bold block mt-1.5 font-mono">
+              <span className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-[#7A501F]/80 font-bold block mt-2.5 font-sans">
                 {isMarathi ? 'शासकीय निविदा मार्गदर्शक व सल्लागार' : 'Tender Consultancy & Education'}
               </span>
             </div>
@@ -108,12 +108,12 @@ export const Hero = () => {
         </p>
 
         {/* Compact Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 max-w-xs sm:max-w-sm md:max-w-md mx-auto w-full">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 max-w-xs sm:max-w-sm mx-auto w-full">
           {/* Primary CTA */}
           <a
             href="#courses"
-            className={`w-full sm:w-auto inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-none border border-[#0B1628] text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-200 group cursor-pointer ${
-              isMarathi ? 'font-mr text-xs sm:text-sm font-bold' : 'font-sans'
+            className={`w-full sm:w-auto inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-md border border-[#0B1628] text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer ${
+              isMarathi ? 'font-mr text-xs font-bold' : 'font-sans'
             }`}
           >
             <span>{t('hero.primaryCta')}</span>
@@ -123,8 +123,8 @@ export const Hero = () => {
           {/* Secondary CTA */}
           <a
             href="#webinars"
-            className={`w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-[#FAF8F5] text-[#0B1628] hover:text-[#93622A] px-5 py-2.5 sm:px-6 sm:py-3 rounded-none border border-[#93622A] text-xs font-bold uppercase tracking-wider shadow-2xs transition-all duration-200 cursor-pointer ${
-              isMarathi ? 'font-mr text-xs sm:text-sm font-bold' : 'font-sans'
+            className={`w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-[#FAF8F5] text-[#0B1628] hover:text-[#93622A] px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-md border border-[#93622A] text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-2xs hover:shadow-sm transition-all duration-200 cursor-pointer ${
+              isMarathi ? 'font-mr text-xs font-bold' : 'font-sans'
             }`}
           >
             <Calendar className="mr-1.5 w-3.5 h-3.5 text-[#7A501F]" />

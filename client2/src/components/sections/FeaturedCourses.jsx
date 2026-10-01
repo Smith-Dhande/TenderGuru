@@ -44,7 +44,7 @@ export const FeaturedCourses = () => {
         <div className="mt-10 sm:mt-14 text-center">
           <button
             onClick={() => setShowAll(!showAll)}
-            className={`inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-8 py-3.5 rounded-none text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md transform hover:-translate-y-0.5 cursor-pointer ${language === 'mr' ? 'font-mr text-sm font-bold' : 'font-sans'
+            className={`inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-8 py-3.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md transform hover:-translate-y-0.5 cursor-pointer ${language === 'mr' ? 'font-mr text-sm font-bold' : 'font-sans'
               }`}
           >
             <span>{showAll ? t('Show Less') : t('View More')}</span>
@@ -158,7 +158,7 @@ export const FeaturedCourses = () => {
               <a
                 href="#webinars"
                 onClick={() => setSelectedCourse(null)}
-                className={`inline-flex items-center justify-center bg-[#93622A] hover:bg-[#7A501F] text-white px-5 py-2.5 rounded-none text-xs font-bold uppercase tracking-wider transition-colors shadow-sm ${language === 'mr' ? 'font-mr text-xs font-bold' : 'font-sans'
+                className={`inline-flex items-center justify-center bg-[#93622A] hover:bg-[#7A501F] text-white px-5 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-colors shadow-sm ${language === 'mr' ? 'font-mr text-xs font-bold' : 'font-sans'
                   }`}
               >
                 <span>{t('courses.enrollNow')}</span>

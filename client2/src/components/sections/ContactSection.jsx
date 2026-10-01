@@ -52,85 +52,78 @@ export const ContactSection = () => {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                    }`}>
-                    {t('contact.form.name')} *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-[#F2EFE9] border border-[#E2DDD5] px-4 py-2.5 rounded-xs text-sm text-[#0B1628] focus:outline-none focus:border-[#0B1628] transition-colors"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                      }`}>
-                      {t('contact.form.phone')} *
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Row 1: Name & Email */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div className="group">
+                    <label className="block text-[10px] sm:text-xs font-mono font-semibold text-slate-400 uppercase tracking-widest mb-2">
+                      NAME
                     </label>
                     <input
-                      type="tel"
+                      type="text"
                       required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-[#F2EFE9] border border-[#E2DDD5] px-4 py-2.5 rounded-xs text-sm text-[#0B1628] focus:outline-none focus:border-[#0B1628] transition-colors"
+                      placeholder={language === 'mr' ? 'तुमचे नाव प्रविष्ट करा' : 'How should we address you?'}
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full bg-transparent border-b border-[#E2DDD5] focus:border-[#93622A] py-2.5 text-sm sm:text-base text-[#0B1628] placeholder-slate-400/80 focus:outline-none transition-colors font-sans"
                     />
                   </div>
 
-                  <div>
-                    <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                      }`}>
-                      {t('contact.form.email')}
+                  <div className="group">
+                    <label className="block text-[10px] sm:text-xs font-mono font-semibold text-slate-400 uppercase tracking-widest mb-2">
+                      EMAIL
                     </label>
                     <input
                       type="email"
+                      placeholder={language === 'mr' ? 'तुमचा ईमेल पत्ता' : 'Where should we reach you?'}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#F2EFE9] border border-[#E2DDD5] px-4 py-2.5 rounded-xs text-sm text-[#0B1628] focus:outline-none focus:border-[#0B1628] transition-colors"
+                      className="w-full bg-transparent border-b border-[#E2DDD5] focus:border-[#93622A] py-2.5 text-sm sm:text-base text-[#0B1628] placeholder-slate-400/80 focus:outline-none transition-colors font-sans"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                    }`}>
-                    {t('contact.form.category')}
+                {/* Row 2: Phone Number */}
+                <div className="group">
+                  <label className="block text-[10px] sm:text-xs font-mono font-semibold text-slate-400 uppercase tracking-widest mb-2">
+                    PHONE NUMBER
                   </label>
                   <input
-                    type="text"
-                    placeholder={language === 'mr' ? 'उदा. कंत्राटदार, MSME, अभियंता' : 'e.g. MSME, Contractor, Engineer'}
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full bg-[#F2EFE9] border border-[#E2DDD5] px-4 py-2.5 rounded-xs text-sm text-[#0B1628] focus:outline-none focus:border-[#0B1628] transition-colors"
+                    type="tel"
+                    required
+                    placeholder={language === 'mr' ? 'तुमचा मोबाईल नंबर' : 'A number to connect over'}
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full bg-transparent border-b border-[#E2DDD5] focus:border-[#93622A] py-2.5 text-sm sm:text-base text-[#0B1628] placeholder-slate-400/80 focus:outline-none transition-colors font-sans"
                   />
                 </div>
 
-                <div>
-                  <label className={`block text-xs font-bold text-[#0B1628] uppercase tracking-wider mb-1.5 ${language === 'mr' ? 'font-mr text-sm' : 'font-sans'
-                    }`}>
-                    {t('contact.form.message')}
+                {/* Row 3: Message */}
+                <div className="group">
+                  <label className="block text-[10px] sm:text-xs font-mono font-semibold text-slate-400 uppercase tracking-widest mb-2">
+                    MESSAGE
                   </label>
                   <textarea
-                    rows={4}
+                    rows={3}
+                    placeholder={language === 'mr' ? 'तुमचा संदेश लिहा...' : "What's the vision? We're listening..."}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#F2EFE9] border border-[#E2DDD5] px-4 py-2.5 rounded-xs text-sm text-[#0B1628] focus:outline-none focus:border-[#0B1628] transition-colors"
+                    className="w-full bg-transparent border-b border-[#E2DDD5] focus:border-[#93622A] py-2.5 text-sm sm:text-base text-[#0B1628] placeholder-slate-400/80 focus:outline-none resize-none transition-colors font-sans"
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className={`w-full inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white py-3.5 px-6 rounded-xs text-sm font-bold shadow-xs transition-colors ${language === 'mr' ? 'font-mr text-base' : 'font-sans uppercase tracking-wider'
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className={`w-full inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white py-3.5 px-6 rounded-md text-sm font-bold shadow-xs transition-colors cursor-pointer ${
+                      language === 'mr' ? 'font-mr text-base' : 'font-sans uppercase tracking-wider'
                     }`}
-                >
-                  <span>{t('contact.form.submit')}</span>
-                  <Send className="ml-2 w-4 h-4 text-amber-300" />
-                </button>
+                  >
+                    <span>{t('contact.form.submit')}</span>
+                    <Send className="ml-2 w-4 h-4 text-amber-300" />
+                  </button>
+                </div>
               </form>
             )}
           </div>

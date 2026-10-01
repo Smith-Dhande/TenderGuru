@@ -20,9 +20,10 @@ export const FaqSection = () => {
           
           {/* Left Column: Section Title & Direct Contact Card */}
           <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <div className="inline-flex items-center space-x-2 bg-[#93622A]/10 text-[#7A501F] text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3">
-              <HelpCircle className="w-3.5 h-3.5 text-[#93622A]" />
-              <span>{t('faq.tag')}</span>
+            <div className="mb-3">
+              <span className="text-xs font-semibold tracking-widest text-[#93622A] uppercase font-sans">
+                {t('faq.tag')}
+              </span>
             </div>
 
             <h2 className={`text-3xl sm:text-4xl md:text-5xl text-[#0B1628] font-extrabold mb-4 leading-tight ${

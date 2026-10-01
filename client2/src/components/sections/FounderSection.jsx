@@ -79,8 +79,8 @@ export const FounderSection = () => {
                 {t('founder.bio')}
               </p>
 
-              {/* Highlights List */}
-              <div className="space-y-2.5 pt-4 border-t border-[#E2DDD5]">
+              {/* Highlights List (Hidden on mobile, visible on desktop) */}
+              <div className="hidden sm:block space-y-2.5 pt-4 border-t border-[#E2DDD5]">
                 {highlights.map((item, idx) => (
                   <div key={idx} className="flex items-center space-x-2.5 text-sm font-medium text-[#16243B]">
                     <CheckCircle2 className="w-4 h-4 text-[#93622A] shrink-0" />

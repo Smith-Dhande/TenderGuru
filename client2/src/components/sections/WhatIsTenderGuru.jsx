@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const WhatIsTenderGuru = () => {
   const { language } = useLanguage();
   const isMarathi = language === 'mr';
   const [activeCard, setActiveCard] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const scrollRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const cards = [
     {
@@ -42,8 +45,74 @@ export const WhatIsTenderGuru = () => {
     }
   ];
 
+  // Track visibility so auto-spin ONLY runs when section is visible in viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToCard = (index) => {
+    setActiveCard(index);
+    if (scrollRef.current && window.innerWidth < 1024) {
+      const container = scrollRef.current;
+      const targetCard = container.children[index];
+      if (targetCard) {
+        container.scrollTo({
+          left: targetCard.offsetLeft - container.offsetLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
+  const handleScroll = () => {
+    if (scrollRef.current && window.innerWidth < 1024) {
+      const container = scrollRef.current;
+      const scrollPosition = container.scrollLeft;
+      const cardWidth = container.children[0]?.offsetWidth || 1;
+      const newIndex = Math.round(scrollPosition / cardWidth);
+      if (newIndex >= 0 && newIndex < cards.length && newIndex !== activeCard) {
+        setActiveCard(newIndex);
+      }
+    }
+  };
+
+  // Auto-spinning carousel every 2.5s strictly when section is visible in viewport
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const timer = setInterval(() => {
+      if (window.innerWidth < 1024 && scrollRef.current) {
+        setActiveCard((prev) => {
+          const next = (prev + 1) % cards.length;
+          const container = scrollRef.current;
+          const targetCard = container.children[next];
+          if (targetCard) {
+            container.scrollTo({
+              left: targetCard.offsetLeft - container.offsetLeft,
+              behavior: 'smooth'
+            });
+          }
+          return next;
+        });
+      }
+    }, 2500);
+
+    return () => clearInterval(timer);
+  }, [isVisible, cards.length]);
+
   return (
-    <section className="py-12 sm:py-20 bg-[#FAF7F2] border-y border-[#E8E2D5] relative overflow-hidden select-none">
+    <section ref={sectionRef} className="py-12 sm:py-20 bg-[#FAF7F2] border-y border-[#E8E2D5] relative overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Header Row */}
@@ -65,18 +134,22 @@ export const WhatIsTenderGuru = () => {
           </p>
         </div>
 
-        {/* Dynamic Expanding Card Accordion Grid */}
-        <div className="flex flex-col lg:flex-row gap-5 items-stretch min-h-[320px] sm:min-h-[360px] w-full">
+        {/* Dynamic Expanding Card Accordion Grid (Auto Carousel on Mobile, Accordion Flex Grid on Desktop) */}
+        <div 
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 sm:gap-5 pb-4 -mx-4 px-4 scrollbar-none lg:flex-row lg:gap-5 lg:items-stretch min-h-[240px] sm:min-h-[360px] w-full lg:overflow-visible lg:pb-0 lg:mx-0 lg:px-0"
+        >
           {cards.map((card, idx) => {
             const isActive = activeCard === idx;
 
             if (card.isFirst) {
-              // Card 1: Warm Paper Card (Keeps its architectural image on right half)
+              // Card 1: Warm Paper Card
               return (
                 <div
                   key={card.id}
                   onMouseEnter={() => setActiveCard(idx)}
-                  className={`cursor-pointer transition-all duration-500 ease-out rounded-3xl p-6 sm:p-9 relative overflow-hidden flex flex-col justify-between shadow-xs ${
+                  className={`w-[70vw] sm:w-[340px] lg:w-auto shrink-0 lg:shrink snap-center lg:snap-align-none cursor-pointer transition-all duration-500 ease-out rounded-2xl sm:rounded-3xl p-4.5 sm:p-9 relative overflow-hidden flex flex-col justify-between shadow-xs ${
                     isActive
                       ? 'lg:flex-[2] border-2 border-[#C89B53] shadow-xl scale-[1.01]'
                       : 'lg:flex-[1] border border-[#C89B53]/40 opacity-95 hover:opacity-100'
@@ -95,18 +168,18 @@ export const WhatIsTenderGuru = () => {
                   </div>
 
                   <div className="relative z-10">
-                    <span className="text-[10px] sm:text-xs font-mono font-bold text-[#93622A] uppercase tracking-widest block mb-2">
+                    <span className="text-[9px] sm:text-xs font-mono font-bold text-[#93622A] uppercase tracking-widest block mb-1 sm:mb-2">
                       {isMarathi ? card.tagMr : card.tagEn}
                     </span>
-                    <h3 className={`text-xl sm:text-3xl font-bold leading-tight max-w-sm ${
-                      isMarathi ? 'font-mr font-bold text-2xl sm:text-3xl' : 'font-editorial'
+                    <h3 className={`text-base sm:text-3xl font-bold leading-snug max-w-sm ${
+                      isMarathi ? 'font-mr font-bold text-lg sm:text-3xl' : 'font-editorial'
                     }`}>
                       {isMarathi ? card.titleMr : card.titleEn}
                     </h3>
                   </div>
 
-                  <div className="relative z-10 pt-6 sm:pt-10">
-                    <p className={`text-xs sm:text-sm text-slate-700 max-w-md leading-relaxed ${
+                  <div className="relative z-10 pt-3 sm:pt-10">
+                    <p className={`text-[11px] sm:text-sm text-slate-700 max-w-md leading-relaxed ${
                       isMarathi ? 'font-mr' : 'font-sans'
                     }`}>
                       {isMarathi ? card.descMr : card.descEn}
@@ -116,18 +189,18 @@ export const WhatIsTenderGuru = () => {
               );
             }
 
-            // Cards 2 & 3: Dark Ink Navy Cards (Fades in background image on hover/active & expands)
+            // Cards 2 & 3: Dark Ink Navy Cards
             return (
               <div
                 key={card.id}
                 onMouseEnter={() => setActiveCard(idx)}
-                className={`cursor-pointer transition-all duration-500 ease-out rounded-3xl p-6 sm:p-9 relative overflow-hidden flex flex-col justify-between shadow-md ${
+                className={`w-[70vw] sm:w-[340px] lg:w-auto shrink-0 lg:shrink snap-center lg:snap-align-none cursor-pointer transition-all duration-500 ease-out rounded-2xl sm:rounded-3xl p-4.5 sm:p-9 relative overflow-hidden flex flex-col justify-between shadow-md ${
                   isActive
                     ? 'lg:flex-[2] border-2 border-[#C89B53] shadow-2xl scale-[1.01] bg-[#112038]'
                     : 'lg:flex-[1] border border-[#16243B] bg-[#0B1628] hover:bg-[#0F1C31]'
                 } text-white`}
               >
-                {/* Background Image Layer (Fades in on hover / active) */}
+                {/* Background Image Layer */}
                 <div className={`absolute inset-0 transition-all duration-700 pointer-events-none z-0 ${
                   isActive ? 'opacity-35 scale-105' : 'opacity-0'
                 }`}>
@@ -140,18 +213,18 @@ export const WhatIsTenderGuru = () => {
                 </div>
 
                 <div className="relative z-10">
-                  <span className="text-[10px] sm:text-xs font-mono font-bold text-amber-300 uppercase tracking-widest block mb-2">
+                  <span className="text-[9px] sm:text-xs font-mono font-bold text-amber-300 uppercase tracking-widest block mb-1 sm:mb-2">
                     {isMarathi ? card.tagMr : card.tagEn}
                   </span>
-                  <h3 className={`text-xl sm:text-3xl font-bold leading-tight text-white ${
-                    isMarathi ? 'font-mr font-bold text-2xl sm:text-3xl' : 'font-sans'
+                  <h3 className={`text-base sm:text-3xl font-bold leading-snug text-[#FAF8F5] ${
+                    isMarathi ? 'font-mr font-bold text-lg sm:text-3xl' : 'font-sans'
                   }`}>
                     {isMarathi ? card.titleMr : card.titleEn}
                   </h3>
                 </div>
 
-                <div className="relative z-10 pt-6 sm:pt-10 border-t border-slate-700/60">
-                  <p className={`text-xs sm:text-sm text-slate-300 leading-relaxed ${
+                <div className="relative z-10 pt-3 sm:pt-10 border-t border-slate-700/60">
+                  <p className={`text-[11px] sm:text-sm text-slate-300 leading-relaxed ${
                     isMarathi ? 'font-mr' : 'font-sans'
                   }`}>
                     {isMarathi ? card.descMr : card.descEn}
@@ -160,6 +233,20 @@ export const WhatIsTenderGuru = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* Mobile Auto-Spinning Carousel Indicator Dots */}
+        <div className="flex lg:hidden justify-center items-center space-x-2 mt-3">
+          {cards.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => scrollToCard(idx)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeCard === idx ? 'w-6 bg-[#93622A]' : 'w-2 bg-[#C89B53]/30'
+              }`}
+              aria-label={`Go to card ${idx + 1}`}
+            />
+          ))}
         </div>
 
       </div>

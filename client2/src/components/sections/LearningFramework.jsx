@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const LearningFramework = () => {
   const { t, language } = useLanguage();
@@ -23,9 +23,8 @@ export const LearningFramework = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center space-x-2 bg-[#93622A]/10 text-[#7A501F] text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#93622A]" />
-            <span>{t('framework.tag')}</span>
+          <div className="mb-3">
+            <span className="text-xs font-semibold tracking-widest text-[#93622A] uppercase font-sans">{t('framework.tag')}</span>
           </div>
           
           <h2 className={`text-2xl sm:text-4xl md:text-5xl text-[#0B1628] font-extrabold mb-3 sm:mb-4 tracking-tight leading-tight ${
@@ -128,7 +127,7 @@ export const LearningFramework = () => {
         <div className="mt-12 sm:mt-16 text-center">
           <a
             href="#webinars"
-            className={`inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-6 py-3.5 sm:px-8 sm:py-4 rounded-sm text-xs sm:text-base font-bold shadow-md transition-all duration-200 group ${
+            className={`inline-flex items-center justify-center bg-[#0B1628] hover:bg-[#16243B] text-white px-6 py-3.5 sm:px-8 sm:py-4 rounded-md text-xs sm:text-base font-bold shadow-md transition-all duration-200 group ${
               language === 'mr' ? 'font-mr text-sm sm:text-base' : 'font-sans uppercase tracking-wider'
             }`}
           >

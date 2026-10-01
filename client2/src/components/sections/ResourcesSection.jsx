@@ -66,9 +66,8 @@ export const ResourcesSection = () => {
         {/* Institutional Section Header (Preserved Exactly As Requested) */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 sm:mb-16 pb-8 border-b border-[#E8E2D5] gap-6">
           <div className="max-w-2xl">
-            <div className="flex items-center space-x-2 mb-3">
-              <span className="h-2 w-2 rounded-full bg-[#C89B53]"></span>
-              <span className="text-[11px] font-mono font-bold tracking-widest text-[#93622A] uppercase">
+            <div className="mb-3">
+              <span className="text-xs font-semibold tracking-widest text-[#93622A] uppercase font-sans">
                 {t('resources.tag')}
               </span>
             </div>
@@ -132,7 +131,7 @@ export const ResourcesSection = () => {
             </div>
 
             {/* YouTube Right Action Buttons */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center justify-end space-x-3 w-full sm:w-auto">
               <span className="text-xs font-mono font-bold text-[#93622A] bg-[#93622A]/10 px-3 py-1.5 rounded-full border border-[#C89B53]/30">
                 15 MIN LESSON
               </span>

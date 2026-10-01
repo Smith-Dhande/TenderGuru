@@ -68,8 +68,8 @@ export const CourseCard = ({ course, onSelect, language }) => {
             {course.title}
           </h3>
 
-          {/* Short Gold Underline Divider */}
-          <div className="w-6 sm:w-9 h-[1.5px] sm:h-[2px] bg-[#C89B53]/70 my-1.5 sm:my-2 group-hover:w-12 transition-all duration-300" />
+          {/* Short Gold Underline Divider (Hidden on mobile, visible on desktop) */}
+          <div className="hidden sm:block w-6 sm:w-9 h-[1.5px] sm:h-[2px] bg-[#C89B53]/70 my-1.5 sm:my-2 group-hover:w-12 transition-all duration-300" />
 
           {/* Duration & Level Metadata Row */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 text-slate-600 text-[9px] sm:text-xs font-medium flex-wrap sm:flex-nowrap">
