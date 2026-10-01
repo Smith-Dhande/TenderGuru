@@ -30,7 +30,7 @@ export const ContactSection = () => {
           <h2 className={`text-3xl sm:text-4xl text-[#0B1628] font-bold mt-2 mb-3 leading-tight ${language === 'mr' ? 'font-mr font-semibold' : 'font-editorial font-normal'
             }`}>
             {t('contact.title')}
-          </h2>s
+          </h2>
           <p className={`text-base text-slate-700 leading-relaxed ${language === 'mr' ? 'font-mr' : 'font-sans'
             }`}>
             {t('contact.subtitle')}

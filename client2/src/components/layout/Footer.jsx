@@ -41,8 +41,8 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2 - Quick Nav Links */}
-          <div className="md:col-span-3">
+          {/* Column 2 - Quick Nav Links (Hidden on mobile responsive view) */}
+          <div className="hidden md:block md:col-span-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300 mb-4 font-sans">
               {t('footer.quickLinks')}
             </h4>
